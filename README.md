@@ -1,0 +1,2 @@
+# seokwoo-frontend
+frontend
