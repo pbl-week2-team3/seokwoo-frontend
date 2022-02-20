@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid, Image, Text, Button } from "../elements";
 
-import {history} from "../redux/configureStore";
+import { history } from "../redux/configureStore";
 
- const Post = (props) => {
+const Post = (props) => {
   return (
     <React.Fragment>
       <Grid>
@@ -15,18 +15,32 @@ import {history} from "../redux/configureStore";
           <Grid is_flex width="auto">
             <Text>{props.insert_dt}</Text>
             {props.is_me && (
-              <Button width="auto" margin="4px" padding="4px" _onClick={() => {
-                history.push(`/write/${props.id}`);
-              }}>
+              <Button
+                width="auto"
+                margin="4px"
+                padding="4px"
+                _onClick={() => {
+                  history.push(`/write/${props.id}`);
+                }}
+              >
                 수정
               </Button>
             )}
           </Grid>
         </Grid>
-        <Grid padding="16px">
+        <Grid
+          padding="16px"
+          _onClick={() => {
+            history.push(`/post/${props.id}`);
+          }}
+        >
           <Text>{props.contents}</Text>
         </Grid>
-        <Grid>
+        <Grid
+          _onClick={() => {
+            history.push(`/post/${props.id}`);
+          }}
+        >
           <Image shape="rectangle" src={props.image_url} />
         </Grid>
         <Grid padding="16px">
