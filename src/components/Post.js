@@ -11,7 +11,12 @@ const Post = (props) => {
 
   const dispatch = useDispatch();
 
-  const non_like_url = "https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2013/png/iconmonstr-thumb-10.png&r=171&g=171&b=171"
+  const [likeStatus, setLikeStatus] = React.useState(false);
+
+  const likeToggle = () => {
+    setLikeStatus(!likeStatus)
+    console.log("likeStatus : ",likeStatus)
+  }
 
   return (
     <React.Fragment>
@@ -107,7 +112,8 @@ const Post = (props) => {
             댓글 {props.comment_cnt}개
           </Text>
           <LikeBox>
-          <LikeImg/>
+          <LikeImg ls = {likeStatus} onClick={likeToggle}>
+          </LikeImg>
           <Text margin="0px" bold>
             좋아요 {props.comment_cnt}개
           </Text>
@@ -137,7 +143,7 @@ const LikeImg = styled.div`
   --size: 20px;
   width: var(--size);
   height: var(--size);
-  background-image: url("${none_like}");
+  background-image: url("${(props) => props.ls ? like : none_like}");
   background-size: cover;
   margin : 10px
 `;
