@@ -5,11 +5,13 @@ import "moment";
 import moment from "moment";
 
 import { actionCreators as imageActions } from "./image";
+import { CloseOutlined } from "@material-ui/icons";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 const LOADING = "LOADING";
+const DELETE_POST = "DELETE_POST"
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({ post_list, paging }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
@@ -17,6 +19,7 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
+const deletePost = createAction(DELETE_POST, (post_id) => ({post_id}))
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
@@ -160,6 +163,7 @@ const getPostFB = (start = null, size = 3) => {
 
     let _paging = getState().post.paging;
 
+    //next가 없을 때, 마지막일 때
     if(_paging.start && !_paging.next){
       return;
     }
@@ -182,6 +186,7 @@ const getPostFB = (start = null, size = 3) => {
 
         let paging = {
           start: docs.docs[0],
+          //paging 인피니티 스크롤 부분, paging에 필요한 갯수보다 1개 더 많은 post를 가져오고 갯수가 모자랄 경우 마지막페이지로 간주
           next: docs.docs.length === size+1? docs.docs[docs.docs.length -1] : null,
           size: size,
         }
@@ -205,7 +210,7 @@ const getPostFB = (start = null, size = 3) => {
 
           post_list.push(post);
         });
-
+        //이유가 뭐였더라?
         post_list.pop();
 
         console.log("getPostDB : ",post_list);
@@ -241,8 +246,24 @@ const getOnePostFB = (id) => {
 
         dispatch(setPost([post]));
       });
-  }
+  } 
 }
+
+const deletePostFB = (id) => {
+  return function (dispatch, getState, { history }) {
+
+    const postDB = firestore.collection("post");
+    postDB
+      .doc(id)
+      .delete()
+      .then((result) => {
+        console.log("deletePostFB : ", result)
+        dispatch(deletePost(id));
+      });
+
+    history.replace("/");
+  } 
+};
 
 export default handleActions(
   {
@@ -279,7 +300,21 @@ export default handleActions(
       }),
       [LOADING]: (state, action) => produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
-      })
+      }),
+    
+    [DELETE_POST]: (state, action) =>
+    produce(state, (draft) => {
+
+      console.log("before Delete")
+
+      draft.list = draft.list.filter((l,idx) => {
+        console.log("Deletion : ", l.id ,action.payload.post_id)
+        return action.payload.post_id !== l.id;
+      });
+
+      console.log("after Delete")
+
+    }),
   },
   initialState
 );
@@ -292,6 +327,7 @@ const actionCreators = {
   addPostFB,
   editPostFB,
   getOnePostFB,
+  deletePostFB
 };
 
 export { actionCreators };

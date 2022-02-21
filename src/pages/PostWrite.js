@@ -12,6 +12,7 @@ const PostWrite = (props) => {
   const preview = useSelector((state) => state.image.preview);
   const post_list = useSelector((state) => state.post.list);
 
+  //routing url에 get방식으로 받은 변수 가져오기
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
 
