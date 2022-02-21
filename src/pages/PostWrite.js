@@ -12,6 +12,8 @@ const PostWrite = (props) => {
   const preview = useSelector((state) => state.image.preview);
   const post_list = useSelector((state) => state.post.list);
 
+  const [type_num, setType] = React.useState("1");
+
   //routing url에 get방식으로 받은 변수 가져오기
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
@@ -40,12 +42,22 @@ const PostWrite = (props) => {
   };
 
   const addPost = () => {
-    dispatch(postActions.addPostFB(contents));
+    dispatch(postActions.addPostFB(contents, type_num));
   };
 
   const editPost = () => {
-    dispatch(postActions.editPostFB(post_id, {contents: contents}));
-  }
+    dispatch(postActions.editPostFB(post_id, contents));
+  };
+
+  const checkType = (e) => {
+    if (e.target.value == "1") {
+      setType("1");
+    } else if (e.target.value == "2") {
+      setType("2");
+    } else if (e.target.value == "3") {
+      setType("3");
+    }
+  };
 
   if (!is_login) {
     return (
@@ -73,19 +85,84 @@ const PostWrite = (props) => {
         </Text>
         <Upload />
       </Grid>
-
+      {!is_edit &&
       <Grid>
-        <Grid padding="16px">
-          <Text margin="0px" size="24px" bold>
-            미리보기
-          </Text>
-        </Grid>
-
-        <Image
-          shape="rectangle"
-          src={preview ? preview : "http://via.placeholder.com/400x300"}
+        <input
+          name="radio"
+          type="radio"
+          id="type1"
+          value="1"
+          checked={type_num == "1"}
+          onChange={checkType}
         />
+        <label for="1">Type1</label>
+        <br />
+        <input
+          name="radio"
+          type="radio"
+          id="type2"
+          value="2"
+          checked={type_num == "2"}
+          onChange={checkType}
+        />
+        <label for="2">Type2</label>
+        <br />
+        <input
+          name="radio"
+          type="radio"
+          id="type3"
+          value="3"
+          checked={type_num == "3"}
+          onChange={checkType}
+        />
+        <label for="3">Type3</label>
       </Grid>
+      }
+
+      {type_num === "1" && (
+        <Grid>
+          <Grid padding="16px">
+            <Text margin="0px" size="24px" bold>
+              미리보기
+            </Text>
+          </Grid>
+
+          <Image
+            shape="rectangle"
+            src={preview ? preview : "http://via.placeholder.com/400x300"}
+          />
+        </Grid>
+      )}
+
+      {type_num === "2" && (
+        <Grid is_flex>
+          <Grid padding="16px">
+            <Text margin="0px" size="24px" bold>
+              미리보기
+            </Text>
+          </Grid>
+
+          <Image
+            shape="rectangle"
+            src={preview ? preview : "http://via.placeholder.com/400x300"}
+          />
+        </Grid>
+      )}
+
+      {type_num === "3" && (
+        <Grid is_flex>
+          <Image
+            shape="rectangle"
+            src={preview ? preview : "http://via.placeholder.com/400x300"}
+          />
+
+          <Grid padding="16px">
+            <Text margin="0px" size="24px" bold>
+              미리보기
+            </Text>
+          </Grid>
+        </Grid>
+      )}
 
       <Grid padding="16px">
         <Input

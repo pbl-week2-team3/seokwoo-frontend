@@ -47,31 +47,72 @@ const Post = (props) => {
             )}
           </Grid>
         </Grid>
+
+        
+        {props.type_num === "1" &&
         <Grid
           padding="16px"
           _onClick={() => {
             history.push(`/post/${props.id}`);
           }}
         >
-        <Text>{props.contents}</Text>
+          <Grid>
+          
+          <Text border="1" minHeight="300">{props.contents}</Text>
+          
+          <Image shape="rectangle" src={props.image_url} />
+       
+          </Grid>
         </Grid>
+        }
+
+        {props.type_num === "2" &&
         <Grid
+          is_flex
+          padding="16px"
           _onClick={() => {
             history.push(`/post/${props.id}`);
           }}
         >
+          <Grid border="1">
+          <Text minHeight="300">{props.contents}</Text>
+          </Grid>
+          <Grid>
           <Image shape="rectangle" src={props.image_url} />
+          </Grid>
         </Grid>
+        }
+
+        {props.type_num === "3" &&
+        <Grid
+          is_flex
+          padding="16px"
+          _onClick={() => {
+            history.push(`/post/${props.id}`);
+          }}
+        >
+          <Grid>
+          <Image shape="rectangle" src={props.image_url} />
+          </Grid>
+          <Grid border="1">
+          <Text minHeight="300">{props.contents}</Text>
+          </Grid>
+        </Grid>
+        }
+
+        
         <Grid padding="16px">
+          <LikeReplyBox>
           <Text margin="0px" bold>
             댓글 {props.comment_cnt}개
           </Text>
-          <div>
+          <LikeBox>
           <LikeImg/>
           <Text margin="0px" bold>
             좋아요 {props.comment_cnt}개
           </Text>
-          </div>
+          </LikeBox>
+          </LikeReplyBox>
         </Grid>
       </Grid>
     </React.Fragment>
@@ -93,11 +134,23 @@ Post.defaultProps = {
 };
 
 const LikeImg = styled.div`
-  --size: 30px;
+  --size: 20px;
   width: var(--size);
   height: var(--size);
   background-image: url("${none_like}");
   background-size: cover;
+  margin : 10px
+`;
+
+const LikeBox = styled.div`
+display: flex;
+align-items: center;
+`;
+
+const LikeReplyBox = styled.div`
+display: flex;
+align-items: center;
+justify-content: space-between;
 `;
 
 export default Post;

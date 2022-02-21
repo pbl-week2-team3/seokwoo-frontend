@@ -98,7 +98,7 @@ const editPostFB = (post_id = null, post = {}) => {
   };
 };
 
-const addPostFB = (contents = "") => {
+const addPostFB = (contents = "", type_num = "1") => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection("post");
 
@@ -113,6 +113,7 @@ const addPostFB = (contents = "") => {
     const _post = {
       ...initialPost,
       contents: contents,
+      type_num: type_num,
       insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
     };
 
