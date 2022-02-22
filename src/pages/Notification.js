@@ -36,7 +36,7 @@ const Notification = (props) => {
   
   return (
     <React.Fragment>
-      <Grid padding="16px" bg="#EFF6FF">
+      <Grid is_flex center margin="0px auto" padding="16px" bg="#EFF6FF">
         {noti.map((n, idx) => {
           return <Card key={`noti_${idx}`} {...n} />;
         })}

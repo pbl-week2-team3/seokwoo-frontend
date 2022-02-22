@@ -30,6 +30,9 @@ const P = styled.p`
   border : ${(props) => props.border}px solid black;
   height : 100%;
   min-height: ${(props) => props.minHeight}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Text;

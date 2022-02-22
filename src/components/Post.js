@@ -77,7 +77,7 @@ const Post = (props) => {
         >
           <Grid>
           
-          <Text border="1" minHeight="300">{props.contents}</Text>
+          <Text minHeight="300">{props.contents}</Text>
           
           <Image margin="0px auto" shape="rectangle" src={props.image_url} />
        
@@ -94,7 +94,7 @@ const Post = (props) => {
             history.push(`/post/${props.id}`);
           }}
         >
-          <Grid border="1">
+          <Grid>
           <Text minHeight="300">{props.contents}</Text>
           </Grid>
           <Grid>
@@ -115,7 +115,7 @@ const Post = (props) => {
           <Grid>
           <Image shape="rectangle" src={props.image_url} />
           </Grid>
-          <Grid border="1">
+          <Grid>
           <Text minHeight="300">{props.contents}</Text>
           </Grid>
         </Grid>

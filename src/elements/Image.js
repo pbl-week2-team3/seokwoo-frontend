@@ -47,7 +47,7 @@ const ImageDefault = styled.div`
 `;
 
 const AspectOutter = styled.div`
-    width: 70%;
+    width: 100%;
 `;
 
 const AspectInner = styled.div`
@@ -58,6 +58,7 @@ const AspectInner = styled.div`
     background-size: cover;
     margin : ${(props) => props.margin}px;
     border : ${(props) => props.border}px solid black;
+    background-position: center center
 `;
 
 const ImageCircle = styled.div`

@@ -1,3 +1,4 @@
+import { Rowing } from "@material-ui/icons";
 import React from "react";
 import { Grid, Image, Text } from "../elements";
 
