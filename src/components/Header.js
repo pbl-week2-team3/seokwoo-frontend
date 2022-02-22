@@ -12,8 +12,14 @@ import NotiBadge from "./NotiBadge";
 
 const Header = (props) => {
   const dispatch = useDispatch();
+  const user_info = useSelector((state)=> state.user)
   const is_login = useSelector((state) => state.user.is_login);
+  let user_name = "dummy"
+  if (user_info.user){
+    user_name = user_info.user.user_name
+  }
 
+  //const user_name = useSelector((state) => state.user.user.user_name);
   const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
 
   const is_session = sessionStorage.getItem(_session_key)? true : false;
@@ -23,21 +29,29 @@ const Header = (props) => {
   if (is_login && is_session) {
     return (
       <React.Fragment>
-        <Grid is_flex padding="4px 16px">
+        <Grid 
+        bg="#87CEFA"
+        is_flex padding="4px 16px" padding="30">
           <Grid>
             <Text margin="0px" size="24px" bold>
-              헬로
+              {user_name}님 안녕하세요😊
             </Text>
           </Grid>
 
-          <Grid is_flex>
-            <Button text="내정보"></Button>
+          <Grid>
+            <Button 
+            width="100px"
+            text="내정보"></Button>
             
-            <NotiBadge _onClick={() => {
+            <NotiBadge 
+            
+            _onClick={() => {
               history.push("/noti");
             }}
             />
+
             <Button
+              width="100px"
               text="로그아웃"
               _onClick={() => {
                 dispatch(userActions.logoutFB());

@@ -23,7 +23,7 @@ const Grid = (props) => {
 Grid.defaultProps = {
   children: null,
   is_flex: false,
-  width: "100%",
+  width: "90%",
   padding: false,
   margin: false,
   bg: false,
@@ -36,8 +36,8 @@ const GridBox = styled.div`
   width: ${(props) => props.width};
   height: 100%;
   box-sizing: border-box;
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
+  ${(props) => (props.padding ? `padding: ${props.padding}px;` : "")}
+  ${(props) => (props.margin ? `margin: ${props.margin}px;` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
   ${(props) =>
     props.is_flex
@@ -45,6 +45,7 @@ const GridBox = styled.div`
       : ""}
   ${(props) => props.center? `text-align: center;`: ""}
   border : ${(props) => props.border}px solid black;
+  text-align: center;
 `;
 
 export default Grid;

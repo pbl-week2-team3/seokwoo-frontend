@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore, storage } from "../../shared/firebase";
+import { firestore, storage, firebase } from "../../shared/firebase";
 import "moment";
 import moment from "moment";
 
@@ -11,15 +11,24 @@ const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 const LOADING = "LOADING";
-const DELETE_POST = "DELETE_POST"
+const DELETE_POST = "DELETE_POST";
+const LIKE_POST = "LIKE_POST";
 
-const setPost = createAction(SET_POST, (post_list, paging) => ({ post_list, paging }));
+const setPost = createAction(SET_POST, (post_list, paging) => ({
+  post_list,
+  paging,
+}));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
-const deletePost = createAction(DELETE_POST, (post_id) => ({post_id}))
+const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
+const likePost = createAction(LIKE_POST, (post_id,_user_id, like_status) => ({
+  post_id,
+  _user_id,
+  like_status,
+}));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
@@ -38,6 +47,44 @@ const initialPost = {
   contents: "",
   comment_cnt: 0,
   insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+  like: [],
+  like_cnt: 0,
+};
+
+const likePostFB = (post_id = null, like_status = false) => {
+  return function (dispatch, getState, { history }) {
+    const _user = getState().user.user;
+
+    const postDBRef = firestore.collection("post").doc(post_id);
+
+    if (!like_status) {
+      const increment = firebase.firestore.FieldValue.increment(1);
+
+      postDBRef
+        .update({
+          like: firebase.firestore.FieldValue.arrayUnion(_user.uid),
+          like_cnt: increment,
+        })
+        .then((doc) => {
+          dispatch(likePost(post_id,_user.uid ,true));
+          history.replace("/");
+        });
+    } else {
+      const increment = firebase.firestore.FieldValue.increment(-1);
+
+      postDBRef
+        .update({
+          like: firebase.firestore.FieldValue.arrayRemove(_user.uid),
+          like_cnt: increment,
+        })
+        .then((doc) => {
+          dispatch(likePost(post_id, _user.uid, false));
+          history.replace("/");
+        });
+    }
+
+    return;
+  };
 };
 
 const editPostFB = (post_id = null, post = {}) => {
@@ -126,7 +173,7 @@ const addPostFB = (contents = "", type_num = "1") => {
       .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
       .putString(_image, "data_url");
 
-    console.log("_upload : /",_upload)
+    console.log("_upload : /", _upload);
 
     _upload.then((snapshot) => {
       snapshot.ref
@@ -161,11 +208,10 @@ const addPostFB = (contents = "", type_num = "1") => {
 
 const getPostFB = (start = null, size = 3) => {
   return function (dispatch, getState, { history }) {
-
     let _paging = getState().post.paging;
 
     //next가 없을 때, 마지막일 때
-    if(_paging.start && !_paging.next){
+    if (_paging.start && !_paging.next) {
       return;
     }
 
@@ -174,10 +220,9 @@ const getPostFB = (start = null, size = 3) => {
 
     let query = postDB.orderBy("insert_dt", "desc");
 
-    if(start){
+    if (start) {
       query = query.startAt(start);
     }
-
 
     query
       .limit(size + 1)
@@ -188,9 +233,12 @@ const getPostFB = (start = null, size = 3) => {
         let paging = {
           start: docs.docs[0],
           //paging 인피니티 스크롤 부분, paging에 필요한 갯수보다 1개 더 많은 post를 가져오고 갯수가 모자랄 경우 마지막페이지로 간주
-          next: docs.docs.length === size+1? docs.docs[docs.docs.length -1] : null,
+          next:
+            docs.docs.length === size + 1
+              ? docs.docs[docs.docs.length - 1]
+              : null,
           size: size,
-        }
+        };
 
         docs.forEach((doc) => {
           let _post = doc.data();
@@ -214,7 +262,7 @@ const getPostFB = (start = null, size = 3) => {
         //이유가 뭐였더라?
         post_list.pop();
 
-        console.log("getPostDB : ",post_list);
+        console.log("getPostDB : ", post_list);
 
         dispatch(setPost(post_list, paging));
       });
@@ -222,7 +270,7 @@ const getPostFB = (start = null, size = 3) => {
 };
 
 const getOnePostFB = (id) => {
-  return function(dispatch, getState, {history}){
+  return function (dispatch, getState, { history }) {
     const postDB = firestore.collection("post");
     postDB
       .doc(id)
@@ -247,23 +295,22 @@ const getOnePostFB = (id) => {
 
         dispatch(setPost([post]));
       });
-  } 
-}
+  };
+};
 
 const deletePostFB = (id) => {
   return function (dispatch, getState, { history }) {
-
     const postDB = firestore.collection("post");
     postDB
       .doc(id)
       .delete()
       .then((result) => {
-        console.log("deletePostFB : ", result)
+        console.log("deletePostFB : ", result);
         dispatch(deletePost(id));
       });
 
     history.replace("/");
-  } 
+  };
 };
 
 export default handleActions(
@@ -273,19 +320,18 @@ export default handleActions(
         draft.list.push(...action.payload.post_list);
 
         draft.list = draft.list.reduce((acc, cur) => {
-          if(acc.findIndex(a => a.id === cur.id) === -1){
+          if (acc.findIndex((a) => a.id === cur.id) === -1) {
             return [...acc, cur];
-          }else{
+          } else {
             acc[acc.findIndex((a) => a.id === cur.id)] = cur;
             return acc;
           }
         }, []);
 
-
-        if(action.payload.paging){
+        if (action.payload.paging) {
           draft.paging = action.payload.paging;
         }
-        
+
         draft.is_loading = false;
       }),
 
@@ -299,23 +345,46 @@ export default handleActions(
 
         draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
       }),
-      [LOADING]: (state, action) => produce(state, (draft) => {
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
       }),
-    
+
     [DELETE_POST]: (state, action) =>
-    produce(state, (draft) => {
+      produce(state, (draft) => {
+        console.log("before Delete");
 
-      console.log("before Delete")
+        draft.list = draft.list.filter((l, idx) => {
+          console.log("Deletion : ", l.id, action.payload.post_id);
+          return action.payload.post_id !== l.id;
+        });
 
-      draft.list = draft.list.filter((l,idx) => {
-        console.log("Deletion : ", l.id ,action.payload.post_id)
-        return action.payload.post_id !== l.id;
-      });
+        console.log("after Delete");
+      }),
 
-      console.log("after Delete")
+    [LIKE_POST]: (state, action) =>
+      produce(state, (draft) => {
 
-    }),
+        const _user_id = action.payload._user_id;
+
+        let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+
+        if (!action.payload.like_status){
+          
+          draft.list[idx].like.filter((x,idx) => {
+            return x.id !== _user_id
+          })
+          draft.list[idx].like_cnt-=1
+          
+        }else {
+
+          draft.list[idx].like.push(_user_id)
+          draft.list[idx].like_cnt+=1
+
+        }
+
+        console.log("after likePost", !action.payload.like_status);
+      }),
   },
   initialState
 );
@@ -328,7 +397,8 @@ const actionCreators = {
   addPostFB,
   editPostFB,
   getOnePostFB,
-  deletePostFB
+  deletePostFB,
+  likePostFB,
 };
 
 export { actionCreators };

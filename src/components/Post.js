@@ -10,21 +10,34 @@ import { none_like, like } from '../images/like'
 const Post = (props) => {
 
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
 
-  const [likeStatus, setLikeStatus] = React.useState(false);
+  const like_view = props.like_status ? props.like_status : false;
+
+  const [likeStatus, setLikeStatus] = React.useState(like_view);
 
   const likeToggle = () => {
+
+    if (!is_login){
+      return
+    }
+
     setLikeStatus(!likeStatus)
-    console.log("likeStatus : ",likeStatus)
+    dispatch(postActions.likePostFB(props.id, likeStatus))
   }
 
   return (
     <React.Fragment>
-      <Grid>
+      <Grid
+      bg = "#F5F5F5"
+      margin = "50"
+      padding = "20"
+      border = "1"
+      >
         <Grid is_flex padding="16px">
           <Grid is_flex width="auto">
             <Image shape="circle" src={props.src} />
-            <Text bold>{props.user_info.user_name}</Text>
+            <Text bold>작성자 : {props.user_info.user_name}</Text>
           </Grid>
           <Grid is_flex width="auto">
             <Text>{props.insert_dt}</Text>
@@ -56,6 +69,7 @@ const Post = (props) => {
         
         {props.type_num === "1" &&
         <Grid
+          border="1"
           padding="16px"
           _onClick={() => {
             history.push(`/post/${props.id}`);
@@ -73,6 +87,7 @@ const Post = (props) => {
 
         {props.type_num === "2" &&
         <Grid
+          border="1"
           is_flex
           padding="16px"
           _onClick={() => {
@@ -90,6 +105,7 @@ const Post = (props) => {
 
         {props.type_num === "3" &&
         <Grid
+          border="1"
           is_flex
           padding="16px"
           _onClick={() => {
@@ -115,7 +131,7 @@ const Post = (props) => {
           <LikeImg ls = {likeStatus} onClick={likeToggle}>
           </LikeImg>
           <Text margin="0px" bold>
-            좋아요 {props.comment_cnt}개
+            좋아요 {props.like_cnt}개
           </Text>
           </LikeBox>
           </LikeReplyBox>

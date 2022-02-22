@@ -38,16 +38,18 @@ const PostList = (props) => {
             {post_list.map((p, idx) => {
 
               if (p.user_info.user_id === user_info?.uid) {
+                let like_status = false;
+                if (p.like.indexOf(p.user_info.user_id)!=-1){
+                  like_status = true;
+                } 
+
                 return (    
                   <Grid
                     bg="#ffffff"
                     margin="8px 0px"
                     key={p.id}
-                    _onClick={() => {
-                      console.log("onClick checker1")
-                      history.push(`/post/${p.id}`)}}
                   >
-                    <Post {...p} />
+                    <Post {...p} like_status={like_status}/>
                   </Grid>
                 );
               } else {
@@ -55,9 +57,6 @@ const PostList = (props) => {
                   <Grid
                     key={p.id}
                     bg="#ffffff"
-                    _onClick={() => {
-                      console.log("onClick checker2")
-                      history.push(`/post/${p.id}`)}}
                   >
                     <Post {...p} />
                   </Grid>

@@ -22,8 +22,6 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import { apiKey } from "./firebase";
 
-import Temp from "../pages/Temp"
-
 function App() {
   const dispatch = useDispatch();
 
@@ -49,7 +47,6 @@ function App() {
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/search" exact component={Search} />
           <Route path="/noti" exact component={Notification} />
-          <Route path="/temp" exact component={Temp} />
         </ConnectedRouter>
       </Grid>
       <Permit>

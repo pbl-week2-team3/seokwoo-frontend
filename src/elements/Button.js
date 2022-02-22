@@ -31,13 +31,13 @@ Button.defaultProps = {
   _onClick: () => {},
   is_float: false,
   margin: false,
-  width: "100%",
+  width: "50%",
   padding: "12px 0px",
 };
 
 const ElButton = styled.button`
   width: ${(props) => props.width};
-  background-color: #212121;
+  background-color: #483D8B;
   color: #ffffff;
   padding: ${(props) => props.padding};
   box-sizing: border-box;
@@ -48,7 +48,7 @@ const ElButton = styled.button`
 const FloatButton = styled.button`
   width: 50px;
   height: 50px;
-  background-color: #212121;
+  background-color: #483D8B;
   color: #ffffff;
   box-sizing: border-box;
   font-size: 36px;
