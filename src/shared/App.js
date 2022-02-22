@@ -24,6 +24,8 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { apiKey } from "./firebase";
 import { Layers } from "@material-ui/icons";
 import SignUpPage from "../pages/SignUpPage"
+import styled from 'styled-components';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -39,7 +41,8 @@ function App() {
 
   return (
     <React.Fragment>
-      <Grid>
+      <Wrap>
+      <Grid margin="0px auto">
         <ConnectedRouter history={history}>
           <Header></Header>
           <Route path="/" exact component={PostList} />
@@ -52,6 +55,7 @@ function App() {
           <Route path="/noti" exact component={Notification} />
         </ConnectedRouter>
       </Grid>
+      
       <Permit>
         <Button
           is_float
@@ -61,8 +65,15 @@ function App() {
           }}
         ></Button>
       </Permit>
+      </Wrap>
     </React.Fragment>
   );
 }
+
+const Wrap = styled.div`
+margin: auto;
+max-width: 1200px;
+justify-content: center;
+`;
 
 export default App;

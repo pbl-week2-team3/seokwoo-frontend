@@ -10,11 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignUpBox from '../molecules/SignUpBox';
-import { Grid, Text, Input, Button } from "../../elements";
 
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../../redux/modules/user";
-import { emailCheck } from "../../shared/common";
 
 function Copyright(props) {
   return (

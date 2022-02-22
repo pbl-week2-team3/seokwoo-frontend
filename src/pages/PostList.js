@@ -26,7 +26,11 @@ const PostList = (props) => {
 
     return (
       <React.Fragment>
-        <Grid bg={"#EFF6FF"} padding="20px 0px">
+        <Grid
+        center
+        margin="0px auto"
+        padding=""
+        width="1200px">
           {/* <Post/> */}
           <InfinityScroll
             callNext={() => {
@@ -46,7 +50,6 @@ const PostList = (props) => {
                 return (    
                   <Grid
                     bg="#ffffff"
-                    margin="8px 0px"
                     key={p.id}
                   >
                     <Post {...p} like_status={like_status}/>

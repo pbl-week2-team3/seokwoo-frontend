@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from "react";
 
 const Image = (props) => {
-    const {shape, src, size, border} = props;
+    const {shape, src, size, border, padding, margin} = props;
 
     const styles = {
         src: src,
@@ -33,7 +33,7 @@ const Image = (props) => {
 Image.defaultProps = {
   shape: "circle",
   src: "https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg",
-  size: 36,
+  size: 50,
   border: "1",
 };
 
@@ -43,6 +43,7 @@ const ImageDefault = styled.div`
   height: var(--size);
   background-image: url("${(props) => props.src}");
   background-size: cover;
+  margin : ${(props) => props.margin}px;
 `;
 
 const AspectOutter = styled.div`
@@ -51,10 +52,11 @@ const AspectOutter = styled.div`
 
 const AspectInner = styled.div`
     position: relative;
-    padding-top: 75%;
+    padding-top: 100%;
     overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;
+    margin : ${(props) => props.margin}px;
     border : ${(props) => props.border}px solid black;
 `;
 

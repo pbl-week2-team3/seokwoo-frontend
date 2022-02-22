@@ -30,11 +30,11 @@ const Post = (props) => {
     <React.Fragment>
       <Grid
       bg = "#F5F5F5"
-      margin = "50"
-      padding = "20"
+      margin = "0px auto"
       border = "1"
+      padding = "20px 0px 20px 80px"
       >
-        <Grid is_flex padding="16px">
+        <Grid border="1" is_flex padding="20px">
           <Grid is_flex width="auto">
             <Image shape="circle" src={props.src} />
             <Text bold>작성자 : {props.user_info.user_name}</Text>
@@ -79,7 +79,7 @@ const Post = (props) => {
           
           <Text border="1" minHeight="300">{props.contents}</Text>
           
-          <Image shape="rectangle" src={props.image_url} />
+          <Image margin="0px auto" shape="rectangle" src={props.image_url} />
        
           </Grid>
         </Grid>

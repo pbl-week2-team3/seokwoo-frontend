@@ -44,7 +44,9 @@ const Header = (props) => {
       <React.Fragment>
         <Grid 
         bg="#87CEFA"
-        is_flex padding="4px 16px" padding="30">
+        margin="0px auto"
+        is_flex 
+        padding="50px 10px 50px 10px">
           <Grid>
             <Text margin="0px" size="24px" bold>
               {user_name}님 안녕하세요😊
