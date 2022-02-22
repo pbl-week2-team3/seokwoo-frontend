@@ -62,18 +62,19 @@ Input.defaultProps = {
   is_submit: false,
   onSubmit: () => {},
   _onChange: () => {},
+  width : "100%",
 };
 
 const ElTextarea = styled.textarea`
   border: 1px solid #212121;
-  width: 50%;
+  width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
 `;
 
 const ElInput = styled.input`
   border: 1px solid #212121;
-  width: 50%;
+  width: ${(props) => props.width}%;
   padding: 12px 4px;
   box-sizing: border-box;
 `;

@@ -12,6 +12,7 @@ import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail";
 import Search from "./Search";
 import Notification from "../pages/Notification";
+import LoginPage from "../pages/LoginPage"
 
 import Header from "../components/Header";
 import { Grid, Button } from "../elements";
@@ -21,6 +22,8 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import { apiKey } from "./firebase";
+import { Layers } from "@material-ui/icons";
+import SignUpPage from "../pages/SignUpPage"
 
 function App() {
   const dispatch = useDispatch();
@@ -37,11 +40,11 @@ function App() {
   return (
     <React.Fragment>
       <Grid>
-        <Header></Header>
         <ConnectedRouter history={history}>
+          <Header></Header>
           <Route path="/" exact component={PostList} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Signup} />
+          <Route path="/login" exact component={LoginPage} />
+          <Route path="/signup" exact component={SignUpPage} />
           <Route path="/write" exact component={PostWrite} />
           <Route path="/write/:id" exact component={PostWrite} />
           <Route path="/post/:id" exact component={PostDetail} />

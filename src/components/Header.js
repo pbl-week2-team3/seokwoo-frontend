@@ -3,6 +3,8 @@ import { Grid, Text, Button } from "../elements";
 import { getCookie, deleteCookie } from "../shared/Cookie";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configureStore";
@@ -11,10 +13,21 @@ import { apiKey } from "../shared/firebase";
 import NotiBadge from "./NotiBadge";
 
 const Header = (props) => {
+
   const dispatch = useDispatch();
   const user_info = useSelector((state)=> state.user)
   const is_login = useSelector((state) => state.user.is_login);
+
+  const pathname = useLocation().pathname;
+
+  console.log("pathname : ", pathname)
+  
+  if(pathname === "/login" || pathname === "/signUp") {
+    return null;
+  }
+
   let user_name = "dummy"
+
   if (user_info.user){
     user_name = user_info.user.user_name
   }
@@ -76,6 +89,7 @@ const Header = (props) => {
           <Button
             text="로그인"
             _onClick={() => {
+              
               history.push("/login");
             }}
           ></Button>
