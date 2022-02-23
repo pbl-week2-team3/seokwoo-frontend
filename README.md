@@ -32,9 +32,9 @@ editPost : done,
 <br>
 deletePost : done,
 <br>
-Like : working,
+Like : done,
 <br>
-Comment : -,
+Comment : don't have to,
 <br>
 ---
 
