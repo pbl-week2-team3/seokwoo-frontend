@@ -14,7 +14,7 @@
 
 <h3><b>🎞 배포 URL 🎞</b></h3>
 
-[배포 URL 바로가기](https://reactweek2-1161e.web.app)
+[배포 URL 바로가기](https://reactweek2-1161e.web.app/login)
 
 ---
 
