@@ -6,11 +6,13 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import styled from 'styled-components';
 import { none_like, like } from '../images/like'
 import { usePostActions } from "../recoil/post"
+import { useLikeActions } from "../recoil/likes"
 
 const Post = (props) => {
 
   const dispatch = useDispatch();
   const postActions = usePostActions();
+  const likeActions = useLikeActions();
   const is_login = useSelector((state) => state.user.is_login);
 
   const like_view = props.like_status ? props.like_status : false;
@@ -24,8 +26,16 @@ const Post = (props) => {
     }
 
     setLikeStatus(!likeStatus)
-    dispatch(postActions.likePostFB(props.id, likeStatus))
-  }
+    //redux
+    //dispatch(postActions.likePostFB(props.id, likeStatus))
+    if(likeStatus){
+      likeActions.increaseLikeCount(props.id)
+    }else{
+      likeActions.decreaseLikeCount(props.id)
+    }
+
+
+    }
 
   return (
     <React.Fragment>
