@@ -28,7 +28,7 @@ SignOut : done,
 <br>
 createPost : working,
 <br>
-editPost : -,
+editPost : working,
 <br>
 deletePost : working,
 <br>
