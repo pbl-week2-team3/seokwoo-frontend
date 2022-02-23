@@ -164,7 +164,7 @@ src/
     <tr>
         <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251422-5f72b2b6-6289-41a4-97d7-2e80dadba51f.PNG" /></td>
         <td width="50%">
-            <h5>상세 화면</h5>
+            <h5>로그인 화면</h5>
             <ul>
                 <li>Material UI 로그인 템플릿 사용</li>
                 <li>redux를 이용한 전역 데이터 관리</li>
@@ -181,7 +181,7 @@ src/
     <tr>
         <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251495-d01e3363-6e30-4e1e-9485-ceeba206ee08.PNG" /></td>
         <td width="50%">
-            <h5>상세 화면</h5>
+            <h5>회원가입 화면</h5>
             <ul>
                 <li>Material UI 회원가입 템플릿 사용</li>
                 <li>redux를 이용한 전역 데이터 관리</li>
@@ -199,7 +199,7 @@ src/
     <tr>
         <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251526-64082579-4967-4364-a9b8-325bbe947f56.PNG" /></td>
         <td width="50%">
-            <h5>상세 화면</h5>
+            <h5>알림 화면</h5>
             <ul>
                 <li>Material UI Badge를 이용한 실시간 알림기능 구현</li>
                 <li>알림 클릭시 해당 게시물로 이동 구현</li>
