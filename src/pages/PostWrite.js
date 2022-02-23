@@ -1,15 +1,20 @@
 import React from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
 import Upload from "../shared/Upload";
+import { preview, setImagePreview } from "../recoil/preview";
+import { loginState } from "../recoil/users"
+import { usePostActions } from "../recoil/posts"
+import {useRecoilState} from "recoil";
 
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
+//import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
-  const preview = useSelector((state) => state.image.preview);
+  const is_login = useRecoilState(loginState);
+  const preview = useRecoilState(preview);
+  const postActions = usePostActions();
   const post_list = useSelector((state) => state.post.list);
 
   const [type_num, setType] = React.useState("1");
@@ -33,7 +38,9 @@ const PostWrite = (props) => {
     }
 
     if (is_edit) {
-      dispatch(imageActions.setPreview(_post.image_url));
+      setImagePreview(_post.image_url)
+      //redux
+      //dispatch(imageActions.setPreview(_post.image_url));
     }
   }, []);
 
@@ -42,11 +49,20 @@ const PostWrite = (props) => {
   };
 
   const addPost = () => {
-    dispatch(postActions.addPostFB(contents, type_num));
+    
+    //id값??
+    postActions.createPost(contents, type_num);
+
+    //redux
+    //dispatch(postActions.addPostFB(contents, type_num));
   };
 
   const editPost = () => {
-    dispatch(postActions.editPostFB(post_id, contents));
+
+    postActions.editPost(post_id, contents)
+
+    //redux
+    //dispatch(postActions.editPostFB(post_id, contents));
   };
 
   const checkType = (e) => {

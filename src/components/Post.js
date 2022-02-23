@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import styled from 'styled-components';
 import { none_like, like } from '../images/like'
-
+import { usePostActions } from "../recoil/post"
 
 const Post = (props) => {
 
   const dispatch = useDispatch();
+  const postActions = usePostActions();
   const is_login = useSelector((state) => state.user.is_login);
 
   const like_view = props.like_status ? props.like_status : false;
@@ -57,7 +58,9 @@ const Post = (props) => {
                 padding="4px"
                 _onClick={() => {
                   //삭제 dispatch
-                  dispatch(postActions.deletePostFB(props.id));
+                  //redux
+                  //dispatch(postActions.deletePostFB(props.id));
+                  postActions.deletePost(props.id)
                 } }
               >
                   삭제

@@ -2,6 +2,7 @@ import React from "react";
 
 import {Button} from "../elements";
 import {storage} from "./firebase";
+import {preview, setImagePreview} from "../recoil/preview";
 
 import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as imageActions} from "../redux/modules/image";
@@ -25,7 +26,9 @@ const Upload = (props) => {
 
         reader.onloadend = () => {
             console.log(reader.result);
-            dispatch(imageActions.setPreview(reader.result));
+            setImagePreview(reader.result)
+            //redux
+            //dispatch(imageActions.setPreview(reader.result));
         }
 
     }
