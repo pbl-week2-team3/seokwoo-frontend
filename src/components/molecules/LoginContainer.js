@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -10,13 +10,14 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { loginState, useUserActions } from "../../recoil/users"
 import LoginBox from "../atoms/LoginBox";
-import { useDispatch } from "react-redux";
 import { emailCheck } from "../../shared/common";
-import { actionCreators as userActions } from "../../redux/modules/user";
 import Button from "../../elements/Button";
 import Text from "../../elements/Text"
 import Input from "../../elements/Input"
+import { useRecoilValue } from "recoil";
+
 
 function Copyright(props) {
   return (
@@ -40,7 +41,8 @@ const theme = createTheme();
 
 export default function LoginContainer(props) {
 
-  const dispatch = useDispatch();
+  const isLogin = useRecoilValue(loginState);
+  const userActions = useUserActions();
 
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
@@ -58,7 +60,10 @@ export default function LoginContainer(props) {
       return;
     }
 
-    dispatch(userActions.loginFB(id, pwd));
+    //redux
+    //dispatch(userActions.loginFB(id, pwd));
+  
+    userActions.login(id,pwd)
   };
 
   return (

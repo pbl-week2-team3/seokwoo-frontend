@@ -6,6 +6,7 @@ import {
 } from "recoil";
 import { history } from "../redux/configureStore";
 import { apis } from "../apis/apis";
+import { setCookie, deleteCookie } from "../shared/Cookie";
 
 
 export const loginState = atom({
@@ -27,32 +28,32 @@ export const loginUserState = atom({
 export function useUserActions() {
 	const setLoginState = useSetRecoilState(loginState);
 
-	// async function login(id, password) {
-	// 	if ((id, password)) {
-	// 		await apis
-	// 			.login(id, password)
-	// 			.then((res) => {
-	// 				if (res.data[0].success) {
-	// 					localStorage.setItem("userId", id);
-	// 					setCookie("token", res.data[0].token, 1);
-	// 					setCookie("userPwd", password, 1);
-	// 					setLoginState(true);
-	// 					navigate("/");
-	// 				}
-	// 			})
-	// 			.catch((e) => {
-	// 				window.alert("잘못된 로그인 요청입니다.");
-	// 			});
-	// 	}
-	// }
+	async function login(id, password) {
+		if ((id, password)) {
+			await apis
+				.login(id, password)
+				.then((res) => {
+					if (res.data[0].success) {
+						localStorage.setItem("userId", id);
+						setCookie("token", res.data[0].token, 1);
+						setCookie("userPwd", password, 1);
+						setLoginState(true);
+						history.push("/");
+					}
+				})
+				.catch((e) => {
+					window.alert("잘못된 로그인 요청입니다.");
+				});
+		}
+	}
 
-	// function logout() {
-	// 	localStorage.setItem("userId", null);
-	// 	deleteCookie("token");
-	// 	deleteCookie("userPwd");
-	// 	setLoginState(false);
-	// 	navigate("/login");
-	// }
+	function logout() {
+		localStorage.setItem("userId", null);
+		deleteCookie("token");
+		deleteCookie("userPwd");
+		setLoginState(false);
+		history.push("/login");
+	}
 
 	async function signup(
 		id,
