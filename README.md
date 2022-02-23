@@ -1,4 +1,4 @@
-[<h3 align="center"><b>항해99 주특기 2주차 React 프로젝트, Magazine</b></h3>
+<h3 align="center"><b>항해99 주특기 2주차 React 프로젝트, Magazine</b></h3>
 
 <h4 align="center">📆 2022.02.18 ~ 2022.02.23</h4>
 <br>
