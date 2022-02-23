@@ -33,7 +33,7 @@
 <img src="https://img.shields.io/badge/react-375BD2?style=for-the-badge&logo=react&logoColor=white">
 <img src="https://img.shields.io/badge/redux-3CBDB1?style=for-the-badge&logo=redux&logoColor=white">
 <img src="https://img.shields.io/badge/firebase-FFCC33?style=for-the-badge&logo=firebase&logoColor=white">
-<img src="https://img.shields.io/badge/typescript-945DD6?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/recoil-945DD6?style=for-the-badge&logo=recoil&logoColor=white">
 </br>
 <img src="https://img.shields.io/badge/reactrouterdom-375BD2?style=for-the-badge&logo=reactrouterdom&logoColor=white">
 <img src="https://img.shields.io/badge/styledcomponents-181717?style=for-the-badge&logo=styledcomponents&logoColor=white">
