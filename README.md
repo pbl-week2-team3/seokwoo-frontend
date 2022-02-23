@@ -8,9 +8,13 @@
 
 |장석우|
 |:----:|
-|![Photo_JANG_SUKWOO](https://user-images.githubusercontent.com/55970155/154599100-0bf2e188-84ec-4f11-ab23-e061b533964a.jpg) |
+|![Photo_JANG_SUKWOO](https://reactweek2-1161e.web.app) |
 
 <br>
+
+<h3><b>🎞 배포 URL 🎞</b></h3>
+
+[배포 URL 바로가기](https://media-sparta.s3.amazonaws.com/media/tempvideos/20220113/KakaoTalk_20220113_164019842_997.png)
 
 ---
 
