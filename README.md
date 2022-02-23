@@ -40,13 +40,14 @@
 
 
 <br><br>
-<h3 align="center"><b>🎬 Getting Started 🎬</b></h3>
+<h3 align="center"><b>🏁 Getting Started 🏁</b></h3>
 <pre>
 <code>
-~$ cd react_project_01_with_firebase_and_redux
+~$ cd react_plus_class
 ~$ yarn add react-router-dom
 ~$ yarn add react-redux
 ~$ yarn add styled-components
+~$ yarn add @mui/material @emotion/react @emotion/styled
 ~$ yarn start
 </code>
 </pre>
@@ -56,28 +57,65 @@
 <pre>
 <code>
 src/
-┣ addWord/
-┃ ┗ AddWord.js
+┣ components/
+┃ ┣ atoms/
+┃ ┃ ┗ LoginBox.js
+┃ ┣ molecules/
+┃ ┃ ┣ LoginContainer.js
+┃ ┃ ┗ SignUpBox.js
+┃ ┣ organism/
+┃ ┃ ┗ SignUp.js
+┃ ┣ Card.js
+┃ ┣ CommentList.js
+┃ ┣ CommentWrite.js
+┃ ┣ Header.js
+┃ ┣ NotiBadge.js
+┃ ┗ Post.js
+┣ elements/
+┃ ┣ Button.js
+┃ ┣ Grid.js
+┃ ┣ Image.js
+┃ ┣ index.js
+┃ ┣ Input.js
+┃ ┣ Spinner.js
+┃ ┗ Text.js
+┣ images/
+┃ ┗ like.js
+┣ pages/
+┃ ┣ postTypes/
+┃ ┃ ┗ PostTypes.js
+┃ ┣ Login.js
+┃ ┣ LoginPage.js
+┃ ┣ LoginTemp.js
+┃ ┣ Notification.js
+┃ ┣ PostDetail.js
+┃ ┣ PostList.js
+┃ ┣ PostWrite.js
+┃ ┣ Signup.js
+┃ ┣ SignUpPage.js
+┃ ┗ SignUpTemp.js
 ┣ redux/
 ┃ ┣ modules/
-┃ ┃ ┗ word.js
-┃ ┗ configStore.js
-┣ singleBox/
-┃ ┣ readSingle/
-┃ ┃ ┣ ReadSingle.js
-┃ ┃ ┗ ReadSingle.jsx
-┃ ┣ SingleBox.js
-┃ ┗ UpdateSingle.js
-┣ App.css
-┣ App.js
+┃ ┃ ┣ comment.js
+┃ ┃ ┣ image.js
+┃ ┃ ┣ post.js
+┃ ┃ ┗ user.js
+┃ ┗ configureStore.js
+┣ shared/
+┃ ┣ App.css
+┃ ┣ App.js
+┃ ┣ common.js
+┃ ┣ Cookie.js
+┃ ┣ firebase.js
+┃ ┣ InfinityScroll.js
+┃ ┣ Permit.js
+┃ ┣ Search.js
+┃ ┗ Upload.js
 ┣ App.test.js
-┣ firebase.js
 ┣ index.css
 ┣ index.js
-┣ logo.svg
 ┣ reportWebVitals.js
-┣ setupTests.js
-┗ WordBoxList.js
+┗ setupTests.js
 </code>
 </pre>
 <br>
@@ -104,8 +142,9 @@ src/
             <h5>메인 화면</h5>
             <ul>
                 <li>리덕스를 이용하여 Firebase FireStore에 저장된 값 로드하기</li>
-                <li>리액트 라우터 돔을 이용하여 각 페이지 라우팅</li>
-                <li>스타일드 컴포넌트를 이용한 디자인구현</li>
+                <li>리액트 라우터 돔을 이용하여 페이지 라우팅</li>
+                <li>데이터 사용성을 위한 무한스크롤 구현</li>
+                <li>좋아요 기능 </li>
             </ul>
         </td>
     </tr>
@@ -115,16 +154,50 @@ src/
 ---
 
 <br>
-<h4><b>📰 SingleBox Page 📰</b></h4>
+
+
+<h4><b>📰 Login Page 📰</b></h4>
 
 <table width="100%">
     <tr>
         <td width="50%">
             <h5>상세 화면</h5>
             <ul>
-                <li>조건문과 state를 이용한 글 삭제/수정 분기 구현</li>
-                <li>styled-components와 데이터 처리부 분리 구현</li>
-                <li>리덕스 툴킷 적용한 데이터 생성/읽기/삭제/수정 구현</li>
+                <li>Material UI 로그인 템플릿 사용</li>
+                <li>redux를 이용한 전역 데이터 관리</li>
+                <li>firebase Auth를 이용한 유저 정보 관리</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+<h4><b>📰 Signup Page 📰</b></h4>
+
+<table width="100%">
+    <tr>
+        <td width="50%">
+            <h5>상세 화면</h5>
+            <ul>
+                <li>Material UI 회원가입 템플릿 사용</li>
+                <li>redux를 이용한 전역 데이터 관리</li>
+                <li>firebase Auth를 이용한 유저 정보 관리</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+
+<h4><b>📰 Notification Page 📰</b></h4>
+
+<table width="100%">
+    <tr>
+        <td width="50%">
+            <h5>상세 화면</h5>
+            <ul>
+                <li>Material UI Badge를 이용한 실시간 알림기능 구현</li>
+                <li>알림 클릭시 해당 게시물로 이동 구현</li>
             </ul>
         </td>
     </tr>
