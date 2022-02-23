@@ -216,15 +216,41 @@ src/
 
 <h3 align="center"><b>🏷 Firebase  🏷</b></h3>
 
-#### Word
+#### User
 
 |Actions|Params - to|Params - from|Role|
 |:--:|:--:|:--:|:--:|
-|word/CREATE| {text, explain, example} |{id}|생성|
-|word/LOAD| - | list[...{text, explain, example}] |읽기|
-|word/UPDATE|{id, text, explain, example}| - |수정|
-|word/DELETE|{id}| - |삭제|
+|SET_USER| {id, pw, pw_check, user_name} | - |회원가입|
+|GET_USER| - | {id, pw, user_name} | 정보조회(미구현) |
+|LOG_OUT| deleteCookie | - |로그아웃|
 
+#### Post
+
+|Actions|Params - to|Params - from|Role|
+|:--:|:--:|:--:|:--:|
+|GET_POST| {start, next, size} | {post_list, paging} |포스트 *단위별로 GET|
+|SET_POST| {post_list, paging} | - |포스트 *단위별로 SET|
+|ADD_POST| {post} | - | 포스트 추가 |
+|EDIT_POST| {post_id, post} | - | 포스트 수정 |
+|LOADING|  {is_loading} | - |로딩 구분|
+|DELETE_POST| {post_id} | - | 포스트 삭제 |
+|LIKE_POST| {post_id, _user_id, like_status} | {[like], like_cnt} |좋아요 기능 구현|
+
+*무한스크롤 구현으로 인한 화면단위 : 3 post
+
+#### Image
+
+|Actions|Params - to|Params - from|Role|
+|:--:|:--:|:--:|:--:|
+|UPLOAD_IMAGE| {image_url} | {image_url} |Image URL 업로드|
+|SET_PREVIEW| {preview} | {preview} |Image Preview SET|
+
+#### Comment
+
+|Actions|Params - to|Params - from|Role|
+|:--:|:--:|:--:|:--:|
+|SET_COMMENT| {post_id} | {comment_list} |댓글 불러오기|
+|ADD_COMMENT| {post_id, comment} | - |댓글 생성|
 
 <br><br>
 
@@ -236,14 +262,32 @@ src/
 <br>
 <details>
     <summary>
-        <b>리덕스 적용시 복잡한 구조 개선 필요성을 느꼈다.</b>
+        <b>이미지 불러오기</b>
     </summary>
-    <br>해결 : 리덕스 툴킷을 적용하여 Action Creator를 생략하고 Reducer에 통합적용으로 해결
+    <br>해결 : 작성중..
 </details>
 <details>
     <summary>
-        <b>타입 스크립트 적용시, userSelector의 인자 state의 타입 적용</b>
+        <b>무한스크롤</b>
     </summary>
-    <br>해결 : combineReducers를 이용하여 rootReducer를 생성 후, 타입을 export하여 해결
+    <br>해결 : 작성중..
+</details>
+<details>
+    <summary>
+        <b>실시간 댓글 알림 기능</b>
+    </summary>
+    <br>해결 : 작성중..
+</details>
+<details>
+    <summary>
+        <b>좋아요 기능</b>
+    </summary>
+    <br>해결 : 작성중..
+</details>
+<details>
+    <summary>
+        <b>material UI </b>
+    </summary>
+    <br>해결 : 작성중..
 </details>
 ](url)
