@@ -1,17 +1,21 @@
 import React from "react";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { Grid, Text, Input, Button } from "../../elements";
 
 import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../../redux/modules/user";
+//import { actionCreators as userActions } from "../../redux/modules/user";
 import { emailCheck } from "../../shared/common";
+
+import { useRecoilValue } from "recoil";
+import {loginState, useUserActions} from "../../recoil/users"
+import user from "../../redux/modules/user";
+
 
 const SignUpBox = (props) => {
   const dispatch = useDispatch();
+  const userActions = useUserActions();
+  const isLogin = useRecoilValue(loginState);
 
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
@@ -28,7 +32,13 @@ const SignUpBox = (props) => {
       return;
     }
 
-    dispatch(userActions.signupFB(id, pwd, user_name));
+    // redux
+    // dispatch(userActions.signupFB(id, pwd, user_name));
+    
+    //recoil & apis
+    //pwd check 부분 논의해볼것
+    userActions.signup(id, user_name, pwd, pwd);
+
   };
 
   return (
