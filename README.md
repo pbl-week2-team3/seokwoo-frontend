@@ -140,14 +140,6 @@ src/
     <tr>
         <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251199-671a7011-385b-40d1-8700-5a01f088952b.PNG" /></td>
         <td width="50%">
-            <h5>영화 상세 화면</h5>
-            <ul>
-                <li>넷플릭스의 영화 및 드라마 상세정보를 크롤링 하여 Jinja를 이용한 서버 사이드 렌더링으로 구현 </li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
-        <td width="50%">
             <h5>메인 화면</h5>
             <ul>
                 <li>리덕스를 이용하여 Firebase FireStore에 저장된 값 로드하기</li>
