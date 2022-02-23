@@ -1,4 +1,4 @@
-<h3 align="center"><b>항해99 주특기 2주차 React 프로젝트, Magazine</b></h3>
+[<h3 align="center"><b>항해99 주특기 2주차 React 프로젝트, Magazine</b></h3>
 
 <h4 align="center">📆 2022.02.18 ~ 2022.02.23</h4>
 <br>
@@ -138,6 +138,15 @@ src/
 
 <table width="100%">
     <tr>
+        <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251199-671a7011-385b-40d1-8700-5a01f088952b.PNG" /></td>
+        <td width="50%">
+            <h5>영화 상세 화면</h5>
+            <ul>
+                <li>넷플릭스의 영화 및 드라마 상세정보를 크롤링 하여 Jinja를 이용한 서버 사이드 렌더링으로 구현 </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
         <td width="50%">
             <h5>메인 화면</h5>
             <ul>
@@ -241,3 +250,4 @@ src/
     </summary>
     <br>해결 : combineReducers를 이용하여 rootReducer를 생성 후, 타입을 export하여 해결
 </details>
+](url)
