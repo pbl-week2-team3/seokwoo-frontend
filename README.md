@@ -21,11 +21,21 @@
 Refactoring with recoil & Axios
 
 SignUp : done,
-SignIn : working,
-GetPost : -,
+<br>
+SignIn : done,
+<br>
+SignOut : done,
+<br>
+createPost : working,
+<br>
+editPost : -,
+<br>
+deletePost : working,
+<br>
 Like : -,
+<br>
 Comment : -,
-
+<br>
 ---
 
 <h3><b>🎫 프로젝트 소개 🎫</b></h3>
