@@ -8,7 +8,7 @@
 
 |장석우|
 |:----:|
-|![Photo_JANG_SUKWOO](https://reactweek2-1161e.web.app) |
+|![Photo_JANG_SUKWOO](https://user-images.githubusercontent.com/55970155/154599100-0bf2e188-84ec-4f11-ab23-e061b533964a.jpg) |
 
 <br>
 
