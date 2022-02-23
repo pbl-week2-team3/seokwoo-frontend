@@ -145,7 +145,8 @@ src/
                 <li>리덕스를 이용하여 Firebase FireStore에 저장된 값 로드하기</li>
                 <li>리액트 라우터 돔을 이용하여 페이지 라우팅</li>
                 <li>데이터 사용성을 위한 무한스크롤 구현</li>
-                <li>좋아요 기능 </li>
+                <li>좋아요 기능 구현</li>
+                <li>댓글 기능 구현</li>
             </ul>
         </td>
     </tr>
@@ -161,6 +162,7 @@ src/
 
 <table width="100%">
     <tr>
+        <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251422-5f72b2b6-6289-41a4-97d7-2e80dadba51f.PNG" /></td>
         <td width="50%">
             <h5>상세 화면</h5>
             <ul>
@@ -177,6 +179,7 @@ src/
 
 <table width="100%">
     <tr>
+        <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251495-d01e3363-6e30-4e1e-9485-ceeba206ee08.PNG" /></td>
         <td width="50%">
             <h5>상세 화면</h5>
             <ul>
@@ -194,6 +197,7 @@ src/
 
 <table width="100%">
     <tr>
+        <td width="50%"><img src="https://user-images.githubusercontent.com/55970155/155251526-64082579-4967-4364-a9b8-325bbe947f56.PNG" /></td>
         <td width="50%">
             <h5>상세 화면</h5>
             <ul>
