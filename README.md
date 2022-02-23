@@ -26,13 +26,13 @@ SignIn : done,
 <br>
 SignOut : done,
 <br>
-createPost : working,
+createPost : done,
 <br>
-editPost : working,
+editPost : done,
 <br>
-deletePost : working,
+deletePost : done,
 <br>
-Like : -,
+Like : working,
 <br>
 Comment : -,
 <br>
