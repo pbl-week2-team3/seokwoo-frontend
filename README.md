@@ -14,7 +14,7 @@
 
 <h3><b>🎞 배포 URL 🎞</b></h3>
 
-[배포 URL 바로가기](https://media-sparta.s3.amazonaws.com/media/tempvideos/20220113/KakaoTalk_20220113_164019842_997.png)
+[배포 URL 바로가기](https://reactweek2-1161e.web.app)
 
 ---
 
