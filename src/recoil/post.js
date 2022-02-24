@@ -2,9 +2,6 @@ import { atom, selector, selectorFamily } from "recoil";
 import { apis } from "../apis/apis";
 import { history } from "../redux/configureStore";
 
-import { storage } from "../firebase/firebase";
-import { v4 } from "uuid";
-
 // atoms
 export const postState = atom({
 	key: "postState",

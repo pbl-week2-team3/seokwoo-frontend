@@ -2,7 +2,7 @@ import React from "react";
 
 import {Button} from "../elements";
 import {storage} from "./firebase";
-import {preview, setImagePreview} from "../recoil/preview";
+import {preview, UseImagePreview} from "../recoil/preview";
 
 import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as imageActions} from "../redux/modules/image";
@@ -19,14 +19,14 @@ const Upload = (props) => {
 
         console.log(fileInput.current.files[0]);
 
-        const reader = new FileReader();
+        const useReader = new FileReader();
         const file = fileInput.current.files[0];
 
-        reader.readAsDataURL(file);
+        useReader.readAsDataURL(file);
 
-        reader.onloadend = () => {
-            console.log(reader.result);
-            setImagePreview(reader.result)
+        useReader.onloadend = () => {
+            console.log(useReader.result);
+            UseImagePreview(useReader.result)
             //redux
             //dispatch(imageActions.setPreview(reader.result));
         }

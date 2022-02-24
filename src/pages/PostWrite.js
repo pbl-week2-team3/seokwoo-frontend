@@ -1,10 +1,10 @@
 import React from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
 import Upload from "../shared/Upload";
-import { preview, setImagePreview } from "../recoil/preview";
-import { loginState } from "../recoil/users"
-import { usePostActions } from "../recoil/posts"
-import {useRecoilState} from "recoil";
+import { preview, UseImagePreview } from "../recoil/preview";
+import { loginState } from "../recoil/users";
+import { usePostActions } from "../recoil/post";
+import { useRecoilState } from "recoil";
 
 import { useSelector, useDispatch } from "react-redux";
 //import { actionCreators as postActions } from "../redux/modules/post";
@@ -13,19 +13,21 @@ import { actionCreators as imageActions } from "../redux/modules/image";
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   const is_login = useRecoilState(loginState);
+
   const preview = useRecoilState(preview);
   const postActions = usePostActions();
   const post_list = useSelector((state) => state.post.list);
+  const post_id = props.match.params.id;
+  let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
+  
+  UseImagePreview(_post.image_url);
 
   const [type_num, setType] = React.useState("1");
 
   //routing url에 get방식으로 받은 변수 가져오기
-  const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
 
   const { history } = props;
-
-  let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
 
   const [contents, setContents] = React.useState(_post ? _post.contents : "");
 
@@ -33,15 +35,14 @@ const PostWrite = (props) => {
     if (is_edit && !_post) {
       console.log("포스트 정보가 없어요!");
       history.goBack();
-
       return;
     }
 
-    if (is_edit) {
-      setImagePreview(_post.image_url)
-      //redux
-      //dispatch(imageActions.setPreview(_post.image_url));
+    if(is_edit){
+    //redux
+    //dispatch(imageActions.setPreview(_post.image_url));
     }
+
   }, []);
 
   const changeContents = (e) => {
@@ -49,7 +50,6 @@ const PostWrite = (props) => {
   };
 
   const addPost = () => {
-    
     //id값??
     postActions.createPost(contents, type_num);
 
@@ -58,8 +58,7 @@ const PostWrite = (props) => {
   };
 
   const editPost = () => {
-
-    postActions.editPost(post_id, contents)
+    postActions.editPost(post_id, contents);
 
     //redux
     //dispatch(postActions.editPostFB(post_id, contents));
@@ -101,39 +100,39 @@ const PostWrite = (props) => {
         </Text>
         <Upload />
       </Grid>
-      {!is_edit &&
-      <Grid>
-        <input
-          name="radio"
-          type="radio"
-          id="type1"
-          value="1"
-          checked={type_num == "1"}
-          onChange={checkType}
-        />
-        <label for="1">Type1</label>
-        <br />
-        <input
-          name="radio"
-          type="radio"
-          id="type2"
-          value="2"
-          checked={type_num == "2"}
-          onChange={checkType}
-        />
-        <label for="2">Type2</label>
-        <br />
-        <input
-          name="radio"
-          type="radio"
-          id="type3"
-          value="3"
-          checked={type_num == "3"}
-          onChange={checkType}
-        />
-        <label for="3">Type3</label>
-      </Grid>
-      }
+      {!is_edit && (
+        <Grid>
+          <input
+            name="radio"
+            type="radio"
+            id="type1"
+            value="1"
+            checked={type_num == "1"}
+            onChange={checkType}
+          />
+          <label for="1">Type1</label>
+          <br />
+          <input
+            name="radio"
+            type="radio"
+            id="type2"
+            value="2"
+            checked={type_num == "2"}
+            onChange={checkType}
+          />
+          <label for="2">Type2</label>
+          <br />
+          <input
+            name="radio"
+            type="radio"
+            id="type3"
+            value="3"
+            checked={type_num == "3"}
+            onChange={checkType}
+          />
+          <label for="3">Type3</label>
+        </Grid>
+      )}
 
       {type_num === "1" && (
         <Grid>

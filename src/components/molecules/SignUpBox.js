@@ -8,9 +8,9 @@ import { useDispatch } from "react-redux";
 import { emailCheck } from "../../shared/common";
 
 import { useRecoilValue } from "recoil";
-import {loginState, useUserActions} from "../../recoil/users"
+import { loginState, useUserActions } from "../../recoil/users";
 import user from "../../redux/modules/user";
-
+import axios from "axios"
 
 const SignUpBox = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +21,10 @@ const SignUpBox = (props) => {
   const [pwd, setPwd] = React.useState("");
   const [user_name, setUserName] = React.useState("");
 
-  const signup = () => {
+  const signup = (e) => {
+    e.preventDefault();
+    console.log("123123");
+
     if (id === "" || pwd === "" || user_name === "") {
       window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
       return;
@@ -34,32 +37,54 @@ const SignUpBox = (props) => {
 
     // redux
     // dispatch(userActions.signupFB(id, pwd, user_name));
-    
+
     //recoil & apis
     //pwd check 부분 논의해볼것
-    userActions.signup(id, user_name, pwd, pwd);
+    //userActions.signup(id, user_name, pwd, pwd);
 
+    var data = JSON.stringify({
+      id: "efef",
+      nickname: "wfwfe",
+      password: "Wefef",
+      confirmPassword: "egegeg",
+      profile_img_url: "temp",
+    });
+
+    const test = {
+      method: "post",
+      url: "",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    console.log("data : ", data);
+
+    axios
+      .post("http://onlyonep.shop/api/register", data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
-    <Box
-      component="form"
-      noValidate
-      onSubmit={props.handleSubmit}
-      sx={{ mt: 3 }}
-    >
+    <Box component="form" noValidate onSubmit={signup} sx={{ mt: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={10}>
-        <Grid item xs={10}>
-          <Input
-            required
-            fullWidth
-            id="Nick Name"
-            label="Nick Name"
-            name="Nick Name"
-            autoComplete="Nick Name"
-          />
-        </Grid>
+          <Grid item xs={10}>
+            <Input
+              required
+              fullWidth
+              id="Nick Name"
+              label="Nick Name"
+              name="Nick Name"
+              autoComplete="Nick Name"
+            />
+          </Grid>
           <Input
             autoComplete="given-name"
             name="UserName"

@@ -1,4 +1,4 @@
-import { atom, useSetRecoilState } from "recoil";
+import { atom, useSetRecoilState, useRecoilState } from "recoil";
 
 
 // atoms
@@ -7,7 +7,11 @@ export const preview = atom({
 	default: "",
 });
 
-export function setImagePreview(url) {
+//selector
+
+export function UseImagePreview(url) {
+
+	const [_preview, _setPreview] = useRecoilState(preview);
 
 	const setPreview = useSetRecoilState(preview);
 
