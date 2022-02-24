@@ -3,6 +3,7 @@ import React from "react";
 import {Button} from "../elements";
 import {storage} from "./firebase";
 import {preview, UseImagePreview} from "../recoil/preview";
+import { useSetRecoilState } from "recoil"
 
 import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as imageActions} from "../redux/modules/image";
@@ -11,6 +12,7 @@ const Upload = (props) => {
     const dispatch = useDispatch();
     const is_uploading = useSelector(state => state.image.uploading);
     const fileInput = React.useRef();
+    const setPreview = useSetRecoilState(preview)
 
     const selectFile = (e) => {
         console.log(e);
@@ -24,9 +26,13 @@ const Upload = (props) => {
 
         useReader.readAsDataURL(file);
 
+
         useReader.onloadend = () => {
             console.log(useReader.result);
-            UseImagePreview(useReader.result)
+
+            setPreview(useReader.result)
+
+            //UseImagePreview(useReader.result)
             //redux
             //dispatch(imageActions.setPreview(reader.result));
         }

@@ -1,35 +1,30 @@
 import React from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
 import Upload from "../shared/Upload";
-import { preview, UseImagePreview } from "../recoil/preview";
+import { preview } from "../recoil/preview";
 import { loginState } from "../recoil/users";
-import { usePostActions } from "../recoil/post";
-import { useRecoilState } from "recoil";
+import { usePostActions, postState } from "../recoil/post";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { useSelector, useDispatch } from "react-redux";
 //import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 const PostWrite = (props) => {
+
   const dispatch = useDispatch();
   const is_login = useRecoilState(loginState);
 
-  const preview = useRecoilState(preview);
   const postActions = usePostActions();
-  const post_list = useSelector((state) => state.post.list);
+  const post_list = useRecoilValue(postState);
   const post_id = props.match.params.id;
-  let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
-  
-  UseImagePreview(_post.image_url);
-
-  const [type_num, setType] = React.useState("1");
-
   //routing url에 get방식으로 받은 변수 가져오기
   const is_edit = post_id ? true : false;
+  let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
+  
+  const setPreview = useSetRecoilState(preview);
 
-  const { history } = props;
-
-  const [contents, setContents] = React.useState(_post ? _post.contents : "");
+  const _preview = useRecoilState(preview);
 
   React.useEffect(() => {
     if (is_edit && !_post) {
@@ -38,12 +33,18 @@ const PostWrite = (props) => {
       return;
     }
 
-    if(is_edit){
-    //redux
-    //dispatch(imageActions.setPreview(_post.image_url));
-    }
+    if (is_edit) {
+      //redux
+      //dispatch(imageActions.setPreview(_post.image_url));
+      setPreview(_post.img_url);
 
+    }
   }, []);
+
+
+  const [type_num, setType] = React.useState("2");
+  const { history } = props;
+  const [contents, setContents] = React.useState(_post ? _post.contents : "");
 
   const changeContents = (e) => {
     setContents(e.target.value);
@@ -51,7 +52,9 @@ const PostWrite = (props) => {
 
   const addPost = () => {
     //id값??
-    postActions.createPost(contents, type_num);
+    console.log("image : ", _preview[0])
+
+    postActions.createPost(contents, _preview[0]);
 
     //redux
     //dispatch(postActions.addPostFB(contents, type_num));
@@ -110,7 +113,7 @@ const PostWrite = (props) => {
             checked={type_num == "1"}
             onChange={checkType}
           />
-          <label for="1">Type1</label>
+          <label htmlFor="1">Type1</label>
           <br />
           <input
             name="radio"
@@ -120,7 +123,7 @@ const PostWrite = (props) => {
             checked={type_num == "2"}
             onChange={checkType}
           />
-          <label for="2">Type2</label>
+          <label htmlFor="2">Type2</label>
           <br />
           <input
             name="radio"
@@ -130,7 +133,7 @@ const PostWrite = (props) => {
             checked={type_num == "3"}
             onChange={checkType}
           />
-          <label for="3">Type3</label>
+          <label htmlFor="3">Type3</label>
         </Grid>
       )}
 
@@ -144,7 +147,8 @@ const PostWrite = (props) => {
 
           <Image
             shape="rectangle"
-            src={preview ? preview : "http://via.placeholder.com/400x300"}
+            //src={_preview ? _preview : "http://via.placeholder.com/400x300"}
+            src="http://via.placeholder.com/400x300"
           />
         </Grid>
       )}
@@ -159,7 +163,8 @@ const PostWrite = (props) => {
 
           <Image
             shape="rectangle"
-            src={preview ? preview : "http://via.placeholder.com/400x300"}
+            src={_preview[0] ? _preview[0] : "http://via.placeholder.com/400x300"}
+            //src="http://via.placeholder.com/400x300"
           />
         </Grid>
       )}
@@ -168,7 +173,8 @@ const PostWrite = (props) => {
         <Grid is_flex>
           <Image
             shape="rectangle"
-            src={preview ? preview : "http://via.placeholder.com/400x300"}
+            //src={_preview ? _preview : "http://via.placeholder.com/400x300"}
+            src="http://via.placeholder.com/400x300"
           />
 
           <Grid padding="16px">

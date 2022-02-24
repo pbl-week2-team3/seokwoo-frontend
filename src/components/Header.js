@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { apiKey } from "../shared/firebase";
 
-import NotiBadge from "./NotiBadge";
+//import NotiBadge from "./NotiBadge";
 
 import { loginState, useUserActions } from "../recoil/users";
 import { useRecoilValue } from "recoil";
@@ -45,11 +45,11 @@ const Header = (props) => {
           <Grid>
             <Button width="100px" text="내정보"></Button>
 
-            <NotiBadge
+            {/* <NotiBadge
               _onClick={() => {
                 history.push("/noti");
               }}
-            />
+            /> */}
 
             <Button
               width="100px"

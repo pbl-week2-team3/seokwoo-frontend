@@ -7,20 +7,40 @@ import {actionCreators as postActions} from "../redux/modules/post";
 import InfinityScroll from "../shared/InfinityScroll";
 import {Grid} from "../elements";
 import { history } from "../redux/configureStore";
-
+import { apis } from "../apis/apis";
+import { postState } from "../recoil/post"
+import { useSetRecoilState, useRecoilValue } from "recoil"
 
 const PostList = (props) => {
     const dispatch = useDispatch();
-    const post_list = useSelector((state) => state.post.list);
+    const setPostState = useSetRecoilState(postState);
     const user_info = useSelector((state) => state.user.user);
-    const is_loading = useSelector((state) => state.post.is_loading);
-    const paging = useSelector((state) => state.post.paging);
+    // const is_loading = useSelector((state) => state.post.is_loading);
+    // const paging = useSelector((state) => state.post.paging);
+    const post_list = useRecoilValue(postState)
+    console.log("post_list : ", post_list)
     
     React.useEffect(() => {
 
-        if(post_list.length <= 1){
-             dispatch(postActions.getPostFB());
-        }
+        // redux
+        // if(post_list.length <= 1){
+        //      dispatch(postActions.getPostFB());
+        // }
+
+        apis
+        .post()
+        .then((result)=>{
+          console.log("res : ",result)
+
+          setPostState(result.data.post)
+
+          history.push("/")
+        }).catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+
+          console.log("error catch : ",errorCode, errorMessage);
+        });
        
     }, []);
 
@@ -32,20 +52,20 @@ const PostList = (props) => {
         padding=""
         width="1200px">
           {/* <Post/> */}
-          <InfinityScroll
+          {/* <InfinityScroll
             callNext={() => {
               dispatch(postActions.getPostFB(paging.next));
             }}
             is_next={paging.next ? true : false}
             loading={is_loading}
-          >
+          > */}
             {post_list.map((p, idx) => {
-
-              if (p.user_info.user_id === user_info?.uid) {
+              
+              if (p.nickname === user_info?.uid) {
                 let like_status = false;
-                if (p.like.indexOf(p.user_info.user_id)!=-1){
+                if (p.like_check){
                   like_status = true;
-                } 
+                }
 
                 return (    
                   <Grid
@@ -66,7 +86,7 @@ const PostList = (props) => {
                 );
               }
             })}
-          </InfinityScroll>
+          {/* </InfinityScroll> */}
         </Grid>
       </React.Fragment>
     );

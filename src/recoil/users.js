@@ -18,7 +18,7 @@ export const loginUserState = atom({
   key: "loginUserState",
   default: {
     userId: "",
-    nickName: "",
+    nickName: "defaultnick",
     profileImgUrl: "",
   },
 });
@@ -35,36 +35,35 @@ export function useUserActions() {
         password: password,
       };
 
-      axios
-        .post("http://onlyonep.shop/api/login", data)
-        .then((res) => {
-          if (res) {
-            localStorage.setItem("userId", id);
-			      setCookie("token", res.data.token, 1);
-            setLoginState(true);
-            // const temp=useRecoilValue(loginState);
-            // console.log("check : ",temp)
-            history.push("/");
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      // axios
+      //   .post("http://onlyonep.shop/api/login", data)
+      //   .then((res) => {
+      //     if (res) {
+      //       localStorage.setItem("userId", id);
+			//       setCookie("token", res.data.token, 1);
+      //       setLoginState(true);
+      //       // const temp=useRecoilValue(loginState);
+      //       // console.log("check : ",temp)
+      //       history.push("/");
+      //     }
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
 
-      //   await apis
-      //     .login(id, password)
-      //     .then((res) => {
-      //       if (res.data[0].success) {
-      //         localStorage.setItem("userId", id);
-      //         setCookie("token", res.data[0].token, 1);
-      //         setCookie("userPwd", password, 1);
-      //         setLoginState(true);
-      //         history.push("/");
-      //       }
-      //     })
-      //     .catch((e) => {
-      //       window.alert("잘못된 로그인 요청입니다.");
-      //     });
+        apis
+          .login(data)
+          .then((res) => {
+            if (res.data.success) {
+              localStorage.setItem("userId", id);
+              setCookie("token", res.data.token, 1);
+              setLoginState(true);
+              history.push("/");
+            }
+          })
+          .catch((e) => {
+            window.alert("잘못된 로그인 요청입니다.");
+          });
     }
   }
 

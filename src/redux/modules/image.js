@@ -28,7 +28,7 @@ const uploadImageFB = (image) => {
            console.log(snapshot);
             
            snapshot.ref.getDownloadURL().then((url) => {
-               dispatch(uploadImage(url));
+             dispatch(uploadImage(url));
              console.log(url);
            });
          });

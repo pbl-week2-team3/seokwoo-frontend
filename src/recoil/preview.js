@@ -11,8 +11,6 @@ export const preview = atom({
 
 export function UseImagePreview(url) {
 
-	const [_preview, _setPreview] = useRecoilState(preview);
-
 	const setPreview = useSetRecoilState(preview);
 
 	setPreview(url)

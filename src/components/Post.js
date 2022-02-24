@@ -47,12 +47,12 @@ const Post = (props) => {
       >
         <Grid border="1" is_flex padding="20px">
           <Grid is_flex width="auto">
-            <Image shape="circle" src={props.src} />
-            <Text bold>작성자 : {props.user_info.user_name}</Text>
+            <Image shape="circle" src={props.profile_img} />
+            <Text bold>작성자 : {props.nickname}</Text>
           </Grid>
           <Grid is_flex width="auto">
-            <Text>{props.insert_dt}</Text>
-            {props.is_me && (
+            <Text>{props.reg_date}</Text>
+            {props.me && (
               <><Button
                 width="auto"
                 margin="4px"
@@ -137,14 +137,14 @@ const Post = (props) => {
         
         <Grid padding="16px">
           <LikeReplyBox>
-          <Text margin="0px" bold>
+          {/* <Text margin="0px" bold>
             댓글 {props.comment_cnt}개
-          </Text>
+          </Text> */}
           <LikeBox>
           <LikeImg ls = {likeStatus} onClick={likeToggle}>
           </LikeImg>
           <Text margin="0px" bold>
-            좋아요 {props.like_cnt}개
+            좋아요 {props.like_count}개
           </Text>
           </LikeBox>
           </LikeReplyBox>
