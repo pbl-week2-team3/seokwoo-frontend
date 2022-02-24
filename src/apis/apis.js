@@ -2,11 +2,8 @@ import axios from "axios";
 import { history } from "../redux/configureStore";
 
 const api = axios.create({
-  baseUrl: "http://onlyonep.shop"
+  baseURL: "http://onlyonep.shop"
 });
-
-api.defaults.baseURL = "http://onlyonep.shop";
-api.defaults.headers.post["Content-Type"] = "application/json";
 
 // Alter defaults after instance has been created
 //api.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -36,11 +33,7 @@ export const apis = {
   // cancelLike: (postId) => api.delete(`/api/post/${postId}/like`),
 
   // user
-  signup: (data) => 
-  {
-      console.log("in signup : ",data)
-      api.post("/api/register", data).then((res)=>{console.log("res : ",res)})}
-      ,
+  signup: (data) => api.post("/api/register", data).then((res)=>{console.log("res : ",res)}),
   login: (id, password) => api.get("/api/login", { id, password }),
   getLoginUserInfo: () => api.get("/api/loginUser.json"),
 };

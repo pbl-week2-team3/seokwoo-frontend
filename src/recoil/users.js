@@ -40,9 +40,10 @@ export function useUserActions() {
         .then((res) => {
           if (res) {
             localStorage.setItem("userId", id);
-			setCookie("token", res.data.token, 1);
-            setCookie("userPwd", password, 1);
+			      setCookie("token", res.data.token, 1);
             setLoginState(true);
+            // const temp=useRecoilValue(loginState);
+            // console.log("check : ",temp)
             history.push("/");
           }
         })
@@ -78,9 +79,6 @@ export function useUserActions() {
 	  console.log(error);
 	});
 
-
-
-
     localStorage.setItem("userId", null);
     deleteCookie("token");
     deleteCookie("userPwd");
@@ -112,35 +110,27 @@ export function useUserActions() {
         if (password !== confirmPassword) {
           window.alert("비밀번호와 확인 비밀번호가 일치하지 않습니다");
         } else {
-        //   var data = {
-        //     id: id,
-        //     nickname: nickname,
-        //     password: password,
-        //     confirmPassword: confirmPassword,
-        //     profile_img_url: "temp",
-        //   };
-
-        //   console.log("data : ", data);
-
-        //   axios
-        //     .post("http://onlyonep.shop/api/register", data)
-        //     .then(function (response) {
-        //       console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //       console.log(error);
-        //     });
 
             var data = {
             	"id": id,
             	"nickname": nickname,
             	"password": password,
             	"confirmPassword": confirmPassword,
-            	"profile_img_url": ""
+            	"profile_img_url": " "
           };
 
-		console.log('before apis.signup')
-        await apis.signup(data)
+             apis
+            	.signup(data)
+            	.then((result)=>{
+            		console.log("fin")
+            		console.log("res : ",result)
+            		history.push("/")
+            	}).catch((error) => {
+            		var errorCode = error.code;
+            		var errorMessage = error.message;
+
+            		console.log("error catch : ",errorCode, errorMessage);
+            	});
         }
       }
     }

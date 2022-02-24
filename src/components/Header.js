@@ -18,7 +18,7 @@ const Header = (props) => {
   const userActions = useUserActions();
 
   const is_login = useRecoilValue(loginState);
-
+  console.log("is_login : ",is_login)
   const pathname = useLocation().pathname;
 
   if (pathname === "/login" || pathname === "/signUp") {
