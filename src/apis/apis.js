@@ -1,14 +1,15 @@
 import axios from "axios";
 import { history } from "../redux/configureStore";
 
-
 const api = axios.create({
-  baseUrl: "http://onlyonep.shop",
-  headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json",
-  },
+  baseUrl: "http://onlyonep.shop"
 });
+
+api.defaults.baseURL = "http://onlyonep.shop";
+api.defaults.headers.post["Content-Type"] = "application/json";
+
+// Alter defaults after instance has been created
+//api.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 api.interceptors.request.use(function (config) {
   const accessToken = document.cookie.split("=")[1];
@@ -36,21 +37,10 @@ export const apis = {
 
   // user
   signup: (data) => 
-    api
-      .post("/api/register", 
-        data
-      )
-      .then((result) => {
-        console.log("fin");
-        console.log("res : ", result);
-        history.push("/");
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        console.log(errorCode, errorMessage);
-      }),
-  login: (id, password) => api.get("/api/login.json", { id, password }),
+  {
+      console.log("in signup : ",data)
+      api.post("/api/register", data).then((res)=>{console.log("res : ",res)})}
+      ,
+  login: (id, password) => api.get("/api/login", { id, password }),
   getLoginUserInfo: () => api.get("/api/loginUser.json"),
 };

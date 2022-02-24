@@ -6,7 +6,7 @@ import {
 } from "recoil";
 import { history } from "../redux/configureStore";
 import { apis } from "../apis/apis";
-import { setCookie, deleteCookie } from "../shared/Cookie";
+import { setCookie, deleteCookie, getCookie } from "../shared/Cookie";
 import axios from "axios";
 
 export const loginState = atom({
@@ -30,24 +30,57 @@ export function useUserActions() {
 
   async function login(id, password) {
     if ((id, password)) {
-      await apis
-        .login(id, password)
+      var data = {
+        id: id,
+        password: password,
+      };
+
+      axios
+        .post("http://onlyonep.shop/api/login", data)
         .then((res) => {
-          if (res.data[0].success) {
+          if (res) {
             localStorage.setItem("userId", id);
-            setCookie("token", res.data[0].token, 1);
+			setCookie("token", res.data.token, 1);
             setCookie("userPwd", password, 1);
             setLoginState(true);
             history.push("/");
           }
         })
-        .catch((e) => {
-          window.alert("잘못된 로그인 요청입니다.");
+        .catch(function (error) {
+          console.log(error);
         });
+
+      //   await apis
+      //     .login(id, password)
+      //     .then((res) => {
+      //       if (res.data[0].success) {
+      //         localStorage.setItem("userId", id);
+      //         setCookie("token", res.data[0].token, 1);
+      //         setCookie("userPwd", password, 1);
+      //         setLoginState(true);
+      //         history.push("/");
+      //       }
+      //     })
+      //     .catch((e) => {
+      //       window.alert("잘못된 로그인 요청입니다.");
+      //     });
     }
   }
 
   function logout() {
+
+	axios
+	.post("http://onlyonep.shop/api/logout")
+	.then(function (response) {
+	  console.log(response);
+	})
+	.catch(function (error) {
+	  console.log(error);
+	});
+
+
+
+
     localStorage.setItem("userId", null);
     deleteCookie("token");
     deleteCookie("userPwd");
@@ -62,11 +95,10 @@ export function useUserActions() {
     confirmPassword,
     profileImgUrl
   ) {
-
     const emailRegex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-    
-	if (
+
+    if (
       id === "" ||
       nickname === "" ||
       password === "" ||
@@ -80,60 +112,41 @@ export function useUserActions() {
         if (password !== confirmPassword) {
           window.alert("비밀번호와 확인 비밀번호가 일치하지 않습니다");
         } else {
-			
-          var data = JSON.stringify({
-            "id": id,
-            "nickname": nickname,
-            "password": password,
-            "confirmPassword": confirmPassword,
-            "profile_img_url": "temp"
-          });
+        //   var data = {
+        //     id: id,
+        //     nickname: nickname,
+        //     password: password,
+        //     confirmPassword: confirmPassword,
+        //     profile_img_url: "temp",
+        //   };
 
-          const test = {
-            method: "post",
-            url: "",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            data: data,
+        //   console.log("data : ", data);
+
+        //   axios
+        //     .post("http://onlyonep.shop/api/register", data)
+        //     .then(function (response) {
+        //       console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //       console.log(error);
+        //     });
+
+            var data = {
+            	"id": id,
+            	"nickname": nickname,
+            	"password": password,
+            	"confirmPassword": confirmPassword,
+            	"profile_img_url": ""
           };
 
-		  console.log("data : ",data)
-
-          axios.post("http://onlyonep.shop/api/register", data )
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-
-          // var data = JSON.stringify({
-          // 	"id": id,
-          // 	"nickname": nickname,
-          // 	"password": password,
-          // 	"confirmPassword": confirmPassword,
-          // 	"profile_img_url": "imgURLTest"
-          //   });
-
-          // await apis
-          // 	.signup(data)
-          // 	.then((result)=>{
-          // 		console.log("fin")
-          // 		console.log("res : ",result)
-          // 		history.push("/")
-          // 	}).catch((error) => {
-          // 		var errorCode = error.code;
-          // 		var errorMessage = error.message;
-
-          // 		console.log(errorCode, errorMessage);
-          // 	});
+		console.log('before apis.signup')
+        await apis.signup(data)
         }
       }
     }
   }
   return {
-    //login, logout,
+    login, logout,
     signup,
   };
 }

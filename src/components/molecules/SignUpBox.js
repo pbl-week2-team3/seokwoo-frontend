@@ -23,7 +23,6 @@ const SignUpBox = (props) => {
 
   const signup = (e) => {
     e.preventDefault();
-    console.log("123123");
 
     if (id === "" || pwd === "" || user_name === "") {
       window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
@@ -40,35 +39,9 @@ const SignUpBox = (props) => {
 
     //recoil & apis
     //pwd check 부분 논의해볼것
-    //userActions.signup(id, user_name, pwd, pwd);
+    userActions.signup(id, user_name, pwd, pwd);
 
-    var data = JSON.stringify({
-      id: "efef",
-      nickname: "wfwfe",
-      password: "Wefef",
-      confirmPassword: "egegeg",
-      profile_img_url: "temp",
-    });
 
-    const test = {
-      method: "post",
-      url: "",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    console.log("data : ", data);
-
-    axios
-      .post("http://onlyonep.shop/api/register", data)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   };
 
   return (
