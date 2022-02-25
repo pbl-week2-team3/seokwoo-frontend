@@ -6,22 +6,29 @@ const api = axios.create({
   baseURL: "http://onlyonep.shop"
 });
 
+// 민수님 : http://onlyonep.shop
+
+// 정용님 : http://xpecter.shop
+
+// 승민님 : http://52.78.200.34
+
 // Alter defaults after instance has been created
 //api.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 api.interceptors.request.use(function (config) {
   const accessToken = getCookie("token");
   config.headers.common["token"] = `${accessToken}`;
+  //config.headers.common["authorization"] = `Bearer ${accessToken}`;
   return config;
 });
 
 export const apis = {
   // post
   post: () => api.get("/api/post"),
-  // post: (postId) => api.get(`/api/post/${postId}.json`),
-   add: (data) => api.post("/api/post", data),
-  // delete: (postId) => api.delete(`/api/post/${postId}.json`),
-  // edit: (postId, contents, imgUrl) => api.put(`/api/post/${postId}.json`, {contents, imgUrl}),
+  postDetail: (postId) => api.get(`/api/post/${postId}`),
+  add: (data) => api.post("/api/post", data),
+  delete: (postId) => api.delete(`/api/post/${postId}`),
+  edit: (postId, data) => api.put(`/api/post/${postId}`, data),
 
   // comment
   // alarm: () => api.get("/api/alarm"),
@@ -34,7 +41,7 @@ export const apis = {
   // cancelLike: (postId) => api.delete(`/api/post/${postId}/like`),
 
   // user
-  signup: (data) => api.post("/api/register", data).then((res)=>{console.log("res : ",res)}),
+  signup: (data) => api.post("/api/register", data),
   login: (data) => api.post("/api/login", data ),
   getLoginUserInfo: () => api.get("/api/loginUser.json"),
 };

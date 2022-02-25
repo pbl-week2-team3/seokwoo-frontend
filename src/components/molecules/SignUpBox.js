@@ -1,27 +1,33 @@
 import React from "react";
+
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import { Grid, Text, Input, Button } from "../../elements";
+import { Grid, Text, Input, Button, Image } from "../../elements";
 
 import { useDispatch } from "react-redux";
 //import { actionCreators as userActions } from "../../redux/modules/user";
 import { emailCheck } from "../../shared/common";
+import { getImgUrlFB } from "../../shared/ImgUrl"
 
 import { useRecoilValue } from "recoil";
-import { loginState, useUserActions } from "../../recoil/users";
-import user from "../../redux/modules/user";
-import axios from "axios"
+import { loginState, useUserActions, profilePreview } from "../../recoil/users";
+import { Upload } from "../../shared/Upload";
 
 const SignUpBox = (props) => {
   const dispatch = useDispatch();
   const userActions = useUserActions();
   const isLogin = useRecoilValue(loginState);
+  const _profilePreview = useRecoilValue(profilePreview);
 
+
+  
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [user_name, setUserName] = React.useState("");
 
-  const signup = (e) => {
+  console.log("profilePreview : ", profilePreview);
+
+  const signup = async (e) => {
     e.preventDefault();
 
     if (id === "" || pwd === "" || user_name === "") {
@@ -34,13 +40,12 @@ const SignUpBox = (props) => {
       return;
     }
 
-    // redux
-    // dispatch(userActions.signupFB(id, pwd, user_name));
-
     //recoil & apis
-    //pwd check 부분 논의해볼것
-    userActions.signup(id, user_name, pwd, pwd);
+    //img url FB
+    
+    const imgUrl = await getImgUrlFB(id, _profilePreview)
 
+    userActions.signup(id, user_name, pwd, pwd, imgUrl);
 
   };
 
@@ -48,14 +53,18 @@ const SignUpBox = (props) => {
     <Box component="form" noValidate onSubmit={signup} sx={{ mt: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={10}>
-          <Grid item xs={10}>
-            <Input
-              required
-              fullWidth
-              id="Nick Name"
-              label="Nick Name"
-              name="Nick Name"
-              autoComplete="Nick Name"
+          <Grid is_flex>
+            <Grid padding="16px">
+              <Upload is_profile />
+            </Grid>
+
+            <Image
+              shape="circle"
+              src={
+                _profilePreview
+                  ? _profilePreview
+                  : "http://via.placeholder.com/400x300"
+              }
             />
           </Grid>
           <Input

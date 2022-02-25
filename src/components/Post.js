@@ -34,8 +34,9 @@ const Post = (props) => {
       likeActions.decreaseLikeCount(props.id)
     }
 
-
     }
+
+    console.log("post me : ", props.me, props.id)
 
   return (
     <React.Fragment>
@@ -51,7 +52,7 @@ const Post = (props) => {
             <Text bold>작성자 : {props.nickname}</Text>
           </Grid>
           <Grid is_flex width="auto">
-            <Text>{props.reg_date}</Text>
+            <Text>{props.createdAt}</Text>
             {props.me && (
               <><Button
                 width="auto"
@@ -85,33 +86,37 @@ const Post = (props) => {
           border="1"
           padding="16px"
           _onClick={() => {
+            if(props.is_list){
             history.push(`/post/${props.id}`);
+            }
           }}
         >
           <Grid>
           
           <Text minHeight="300">{props.contents}</Text>
           
-          <Image margin="0px auto" shape="rectangle" src={props.image_url} />
+          <Image margin="0px auto" shape="rectangle" src={props.img_url} />
        
           </Grid>
         </Grid>
         }
-
-        {props.type_num === "2" &&
+        {/* type_num 미적용시 2번으로만 되도록 설정 */}
+        {props.type_num === "2" ||
         <Grid
           border="1"
           is_flex
           padding="16px"
           _onClick={() => {
-            history.push(`/post/${props.id}`);
+            if(props.is_list){
+              history.push(`/post/${props.id}`);
+              }
           }}
         >
           <Grid>
           <Text minHeight="300">{props.contents}</Text>
           </Grid>
           <Grid>
-          <Image shape="rectangle" src={props.image_url} />
+          <Image shape="rectangle" src={props.img_url} />
           </Grid>
         </Grid>
         }
@@ -122,11 +127,13 @@ const Post = (props) => {
           is_flex
           padding="16px"
           _onClick={() => {
-            history.push(`/post/${props.id}`);
+            if(props.is_list){
+              history.push(`/post/${props.id}`);
+              }
           }}
         >
           <Grid>
-          <Image shape="rectangle" src={props.image_url} />
+          <Image shape="rectangle" src={props.img_url} />
           </Grid>
           <Grid>
           <Text minHeight="300">{props.contents}</Text>

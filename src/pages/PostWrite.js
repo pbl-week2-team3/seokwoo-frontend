@@ -20,7 +20,8 @@ const PostWrite = (props) => {
   const post_id = props.match.params.id;
   //routing url에 get방식으로 받은 변수 가져오기
   const is_edit = post_id ? true : false;
-  let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
+
+  let _post = is_edit ? post_list.find((p) => p.id == post_id) : null;
   
   const setPreview = useSetRecoilState(preview);
 
@@ -54,7 +55,7 @@ const PostWrite = (props) => {
     //id값??
     console.log("image : ", _preview[0])
 
-    postActions.createPost(contents, _preview[0]);
+    postActions.createPost(contents);
 
     //redux
     //dispatch(postActions.addPostFB(contents, type_num));
@@ -147,8 +148,7 @@ const PostWrite = (props) => {
 
           <Image
             shape="rectangle"
-            //src={_preview ? _preview : "http://via.placeholder.com/400x300"}
-            src="http://via.placeholder.com/400x300"
+            src={_preview[0] ? _preview[0] : "http://via.placeholder.com/400x300"}
           />
         </Grid>
       )}
@@ -164,7 +164,6 @@ const PostWrite = (props) => {
           <Image
             shape="rectangle"
             src={_preview[0] ? _preview[0] : "http://via.placeholder.com/400x300"}
-            //src="http://via.placeholder.com/400x300"
           />
         </Grid>
       )}
@@ -173,8 +172,7 @@ const PostWrite = (props) => {
         <Grid is_flex>
           <Image
             shape="rectangle"
-            //src={_preview ? _preview : "http://via.placeholder.com/400x300"}
-            src="http://via.placeholder.com/400x300"
+            src={_preview[0] ? _preview[0] : "http://via.placeholder.com/400x300"}
           />
 
           <Grid padding="16px">

@@ -5,33 +5,38 @@ import CommentWrite from "../components/CommentWrite";
 
 import Permit from "../shared/Permit";
 
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
+import { useRecoilState } from "recoil"
 
-import { actionCreators as postActions } from "../redux/modules/post";
+import { usePostActions, postSelected } from "../recoil/post";
 
 const PostDetail = (props) => {
-  const dispatch = useDispatch();
+  const postActions = usePostActions();
   const id = props.match.params.id;
 
-  const user_info = useSelector((state) => state.user.user);
+  const user_info = localStorage.getItem("userId");
 
-  const post_list = useSelector((store) => store.post.list);
+  //const post_list = useSelector((store) => store.post.list);
 
-  const post_idx = post_list.findIndex((p) => p.id === id);
-  const post = post_list[post_idx];
+  //const post_idx = post_list.findIndex((p) => p.id === id);
+  //const post = post_list[post_idx];
+  const post = useRecoilState(postSelected);
 
   React.useEffect(() => {
-    if (post) {
-      return;
-    }
-
-    dispatch(postActions.getOnePostFB(id));
+    // if (post) {
+    //   return;
+    // }
+    
+    //redux
+    //dispatch(postActions.getOnePostFB(id));
+    //recoil
+    postActions.getDetailPost(id);
   }, []);
 
   return (
     <React.Fragment>
-      {post && (
-        <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />
+      {post[0] && (
+        <Post {...post[0]} />
       )}
       <Permit>
         <CommentWrite post_id={id} />

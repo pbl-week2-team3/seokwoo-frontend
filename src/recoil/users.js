@@ -23,6 +23,11 @@ export const loginUserState = atom({
   },
 });
 
+export const profilePreview = atom({
+  key: "profilePreview",
+  default: "",
+});
+
 // action hooks
 // login, logout, signup
 export function useUserActions() {
@@ -34,22 +39,6 @@ export function useUserActions() {
         id: id,
         password: password,
       };
-
-      // axios
-      //   .post("http://onlyonep.shop/api/login", data)
-      //   .then((res) => {
-      //     if (res) {
-      //       localStorage.setItem("userId", id);
-			//       setCookie("token", res.data.token, 1);
-      //       setLoginState(true);
-      //       // const temp=useRecoilValue(loginState);
-      //       // console.log("check : ",temp)
-      //       history.push("/");
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
 
         apis
           .login(data)
@@ -115,7 +104,7 @@ export function useUserActions() {
             	"nickname": nickname,
             	"password": password,
             	"confirmPassword": confirmPassword,
-            	"profile_img_url": " "
+            	"profile_img_url": profileImgUrl
           };
 
              apis
@@ -128,7 +117,7 @@ export function useUserActions() {
             		var errorCode = error.code;
             		var errorMessage = error.message;
 
-            		console.log("error catch : ",errorCode, errorMessage);
+            		console.log("error catch : ",error, errorCode, errorMessage);
             	});
         }
       }
