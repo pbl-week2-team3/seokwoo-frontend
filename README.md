@@ -18,21 +18,13 @@
 
 <h3><b>💻 Now Working On.. 💻</b></h3>
 
-Refactoring with recoil & Axios
+To Do List
 
-SignUp : done,
+Like API : to do,
 <br>
-SignIn : done,
+Infinity Scroll : to do,
 <br>
-SignOut : done,
-<br>
-createPost : done,
-<br>
-editPost : done,
-<br>
-deletePost : done,
-<br>
-Like : done,
+S3 Image Upload : to do,
 <br>
 Comment : don't have to,
 <br>
