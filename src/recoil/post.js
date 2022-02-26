@@ -67,9 +67,10 @@ export function usePostActions() {
 		console.log("image URL from firebase : ",url)
 		
 		const data = {
-			user_id: userId,
-			contents: text,
-			img_url: url,
+			//user_id : userId,
+			content : text,
+			img_url : url,
+			type : 2
 		}
 
 		apis
@@ -127,6 +128,7 @@ export function usePostActions() {
 				.delete(postId)
 				.then((result)=>{
 					console.log("delete post res : ",result)
+					window.location.reload()
 					history.push("/")
 				}).catch((error) => {
 					var errorCode = error.code;

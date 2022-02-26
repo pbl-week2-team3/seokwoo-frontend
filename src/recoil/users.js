@@ -58,15 +58,6 @@ export function useUserActions() {
 
   function logout() {
 
-	axios
-	.post("http://onlyonep.shop/api/logout")
-	.then(function (response) {
-	  console.log(response);
-	})
-	.catch(function (error) {
-	  console.log(error);
-	});
-
     localStorage.setItem("userId", null);
     deleteCookie("token");
     deleteCookie("userPwd");
@@ -112,7 +103,7 @@ export function useUserActions() {
             	.then((result)=>{
             		console.log("fin")
             		console.log("res : ",result)
-            		history.push("/")
+            		history.push("/login")
             	}).catch((error) => {
             		var errorCode = error.code;
             		var errorMessage = error.message;

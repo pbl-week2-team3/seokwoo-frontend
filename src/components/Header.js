@@ -6,20 +6,32 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { history } from "../redux/configureStore";
-import { apiKey } from "../shared/firebase";
 
 //import NotiBadge from "./NotiBadge";
 
 import { loginState, useUserActions } from "../recoil/users";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const userActions = useUserActions();
-
+  const setLoginState = useSetRecoilState(loginState);
   const is_login = useRecoilValue(loginState);
   console.log("is_login : ",is_login)
   const pathname = useLocation().pathname;
+  let token = null
+  
+  React.useEffect(() => {
+
+    //cookie에서 token 있으면, is_login = true 넣기
+    token = getCookie("token")
+    console.log("header, token : ", token)
+    if(token){
+      setLoginState(true)
+    }
+
+  }, []);
+  
 
   if (pathname === "/login" || pathname === "/signUp") {
     return null;

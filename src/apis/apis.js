@@ -3,7 +3,7 @@ import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie"
 
 const api = axios.create({
-  baseURL: "http://onlyonep.shop"
+  baseURL: "http://52.78.200.34"
 });
 
 // 민수님 : http://onlyonep.shop
@@ -23,8 +23,9 @@ api.interceptors.request.use(function (config) {
 });
 
 export const apis = {
+
   // post
-  post: () => api.get("/api/post"),
+  post: (lastpost, number) => api.get(`/api/post?lastpost=${lastpost}&number=${number}`),
   postDetail: (postId) => api.get(`/api/post/${postId}`),
   add: (data) => api.post("/api/post", data),
   delete: (postId) => api.delete(`/api/post/${postId}`),
@@ -37,8 +38,8 @@ export const apis = {
   // deleteComment: (postId, commentId) => api.put(`/api/comment/${postId}/${commentId}`),
 
   // like
-  // addLike: (postId) => api.post(`/api/post/${postId}/like`),
-  // cancelLike: (postId) => api.delete(`/api/post/${postId}/like`),
+  addLike: (postId) => api.post(`/api/post/${postId}/like`),
+  cancelLike: (postId) => api.delete(`/api/post/${postId}/like`),
 
   // user
   signup: (data) => api.post("/api/register", data),
