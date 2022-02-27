@@ -22,6 +22,8 @@ const PostList = (props) => {
   const is_login = useRecoilValue(loginState);
 
   const [stateList, setStateList] = React.useState(post_list);
+  const [is_last, setIsLast] = React.useState(false);
+  const [is_loading, setIsLoading] = React.useState(false);
   const [number, setNumber] = React.useState(4);
 
   console.log("starting post_list : ", post_list);
@@ -29,14 +31,19 @@ const PostList = (props) => {
 
 
   React.useEffect(() => {
+
+    setIsLoading(true)
     apis
       .post(0, number)
       .then((result) => {
         console.log("res : ", result);
 
         setPostState(result.data.posts);
-        setStateList([...stateList, ...result.data.posts])
-        history.push("/");
+        setIsLast(result.data.isLast);
+        setStateList([...stateList, ...result.data.posts]);
+
+        setIsLoading(false);
+        
       })
       .catch((error) => {
         var errorCode = error.code;
@@ -62,16 +69,16 @@ const PostList = (props) => {
             //setLastPost(lastpost+4)
             
             console.log("in callNext : ",stateList ,stateList[stateList.length-1])
-            
+            setIsLoading(true);
             apis
               .post(lastId, number)
               .then((result) => {
                 
                 setPostState([...post_list, ...result.data.posts]);
                 setStateList([...stateList, ...result.data.posts]);
+                setIsLast(result.data.isLast);
                 console.log("after append : ", result.data.posts);
-
-                history.push("/");
+                setIsLoading(false);
               })
               .catch((error) => {
                 var errorCode = error.code;
@@ -80,8 +87,8 @@ const PostList = (props) => {
                 console.log("error catch : ", errorCode, errorMessage);
               });
           }}
-          is_next={true}
-          loading={false}
+          is_next={is_last}
+          loading={is_loading}
           post_list = {stateList}
 
         >
