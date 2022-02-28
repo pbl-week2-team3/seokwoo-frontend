@@ -20,9 +20,9 @@
 
 To Do List
 
-Like API : to do,
+Like API : done,
 <br>
-Infinity Scroll : to do,
+Infinity Scroll : done,
 <br>
 S3 Image Upload : to do,
 <br>
