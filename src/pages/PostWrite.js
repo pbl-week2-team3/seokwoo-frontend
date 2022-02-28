@@ -9,6 +9,8 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useSelector, useDispatch } from "react-redux";
 //import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import { getCookie } from "../shared/Cookie";
+import { history } from "../redux/configureStore"
 
 const PostWrite = (props) => {
 
@@ -28,6 +30,12 @@ const PostWrite = (props) => {
   const _preview = useRecoilState(preview);
 
   React.useEffect(() => {
+
+    if (!getCookie("token")){
+      window.alert("로그인 후 글 작성이 가능합니다.")
+      history.push("/login")
+    }
+
     if (is_edit && !_post) {
       console.log("포스트 정보가 없어요!");
       history.goBack();
@@ -55,7 +63,7 @@ const PostWrite = (props) => {
     //id값??
     console.log("image : ", _preview[0])
 
-    postActions.createPost(contents);
+    postActions.createPost(contents, type_num);
 
     //redux
     //dispatch(postActions.addPostFB(contents, type_num));
@@ -195,9 +203,9 @@ const PostWrite = (props) => {
 
       <Grid padding="16px">
         {is_edit ? (
-          <Button text="게시글 수정" _onClick={editPost}></Button>
+          <Button text="게시글 수정" _onClick={editPost} disabled={!(_preview[0] && contents)}></Button>
         ) : (
-          <Button text="게시글 작성" _onClick={addPost}></Button>
+          <Button text="게시글 작성" _onClick={addPost} disabled={!(_preview[0] && contents)}></Button>
         )}
       </Grid>
     </React.Fragment>

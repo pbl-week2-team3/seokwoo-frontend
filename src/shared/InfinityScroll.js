@@ -8,7 +8,6 @@ import { postState } from "../recoil/post";
 const InfinityScroll = (props) => {
 
     const {children, callNext, is_next, loading, post_list} = props;
-    const {scrollHeight} = document.body;
 
     
     const _handleScroll = _.throttle(() => {
@@ -18,6 +17,7 @@ const InfinityScroll = (props) => {
         }
 
         const {innerHeight} = window;
+        const {scrollHeight} = document.body;
 
         const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         
@@ -33,9 +33,9 @@ const InfinityScroll = (props) => {
 
     React.useEffect(() => {
         
-        // if(loading){
-        //     return;
-        // }
+        if(loading){
+            return;
+        }
 
         if(!is_next){
             window.addEventListener("scroll", handleScroll);

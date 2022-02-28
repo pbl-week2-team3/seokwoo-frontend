@@ -19,8 +19,6 @@ const SignUpBox = (props) => {
   const isLogin = useRecoilValue(loginState);
   const _profilePreview = useRecoilValue(profilePreview);
 
-
-  
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [user_name, setUserName] = React.useState("");
@@ -109,7 +107,7 @@ const SignUpBox = (props) => {
         </Grid>
         <Grid item xs={12}></Grid>
       </Grid>
-      <Button _onClick={signup}>Sign Up</Button>
+      <Button _onClick={signup} disabled={!(emailCheck(id) && (pwd.length > 5) && _profilePreview && user_name)}>Sign Up</Button>
       <Grid container justifyContent="flex-end">
         <Grid item>
           <Link href="#" variant="body2">

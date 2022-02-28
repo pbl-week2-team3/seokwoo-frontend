@@ -50,7 +50,7 @@ export function usePostActions() {
 	const userId = localStorage.getItem("userId")
 	const setPostSelected = useSetRecoilState(postSelected);
 
-	async function createPost(text) {
+	async function createPost(text, type_num) {
 
 		
 		//이미지 firebase 업로드
@@ -70,7 +70,7 @@ export function usePostActions() {
 			//user_id : userId,
 			content : text,
 			img_url : url,
-			type : 2
+			type : type_num
 		}
 
 		apis
