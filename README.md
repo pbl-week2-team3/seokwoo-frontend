@@ -32,7 +32,7 @@ apply type script : working,
 - React, Redux, Firebase를 이용하여 매거진을 만들어보자!!
 <br><br> 
 
----
+------
 
 <br>
 <h3 align="center"><b>🛠 Tech Stack 🛠</b></h3>
