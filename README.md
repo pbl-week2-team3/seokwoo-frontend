@@ -20,11 +20,9 @@
 
 To Do List
 
-Code Splitting : working,
+Code Splitting : react-loadable done,
 <br>
-Infinity Scroll : done,
-<br>
-apply type script : to do,
+apply type script : working,
 <br>
 ---
 
