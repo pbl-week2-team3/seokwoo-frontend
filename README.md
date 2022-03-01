@@ -155,11 +155,12 @@ src/
         <td width="50%">
             <h5>메인 화면</h5>
             <ul>
-                <li>리덕스를 이용하여 Firebase FireStore에 저장된 값 로드하기</li>
+                <li>리덕스를 이용하여 Firebase FireStore에 이미지 저장 후, URL 서버에 업로드하기</li>
+                <li>리덕스를 이용하여 서버(Node.js)에 저장 및 로드하기</li>
                 <li>리액트 라우터 돔을 이용하여 페이지 라우팅</li>
                 <li>데이터 사용성을 위한 무한스크롤 구현</li>
                 <li>좋아요 기능 구현</li>
-                <li>댓글 기능 구현</li>
+                <li>댓글 기능 구현, 실시간 알림 구현</li>
             </ul>
         </td>
     </tr>
@@ -181,7 +182,8 @@ src/
             <ul>
                 <li>Material UI 로그인 템플릿 사용</li>
                 <li>redux를 이용한 전역 데이터 관리</li>
-                <li>firebase Auth를 이용한 유저 정보 관리</li>
+                <li>서버를 이용한 유저 정보 관리</li>
+                <li>로그인 후 Token 값 Cookie 저장 및 유저 상태 관리</li>
             </ul>
         </td>
     </tr>
@@ -196,9 +198,9 @@ src/
         <td width="50%">
             <h5>회원가입 화면</h5>
             <ul>
-                <li>Material UI 회원가입 템플릿 사용</li>
-                <li>redux를 이용한 전역 데이터 관리</li>
-                <li>firebase Auth를 이용한 유저 정보 관리</li>
+                <li>입력값의 유효성검사 후 회원가입버튼 활성화</li>
+                <li>recoil를 이용한 전역 데이터 관리</li>
+                <li>서버를 이용한 유저 정보 관리</li>
             </ul>
         </td>
     </tr>
@@ -277,29 +279,28 @@ src/
     <summary>
         <b>이미지 불러오기</b>
     </summary>
-    <br>해결 : 작성중..
+    <br>해결 : firebase Storage에 업로드 후, Url을 받아오는 과정에서 비동기 코드가 잘 동작하지 않았으나,
+                const url = await (await _upload).ref.getDownloadURL()
+                비동기 코드(await)를 이중으로 사용하여 해결하게 되었다.
 </details>
 <details>
     <summary>
         <b>무한스크롤</b>
     </summary>
-    <br>해결 : 작성중..
+    <br>해결 : scroll 위치에 따른 eventListener 동작으로 구현하였고, 최초 Firebase와 연동하여 구현시에는 N+1개의 객체를 가져와 마지막 요청을 구별하였고,
+                어려움이 없었으나, 서버와 연동시에 오히려 is_loading 및 is_next 변수를 hook과 연동하는 과정에서 리로드과정을 이해하지 못했던 부분이 문제가 되어
+                어려움을 겪었다. 많은 시행착오 이후 우선 이해가 부족했었던 useCallback 함수와 useEffect에 대해 더 공부를 한 이후 다시 적용시켜 해결해 낼 수 있었다.
 </details>
 <details>
     <summary>
-        <b>실시간 댓글 알림 기능</b>
+        <b>좋아요 뒤로가기시 상태 유지 안됨</b>
     </summary>
-    <br>해결 : 작성중..
+    <br>해결 : 좋아요 API연동시 response 성공 이후 메인페이지의 postList api를 불러와 데이터를 재로딩 시키는 방법으로 좋아요의 상태를 유지하였다.
 </details>
 <details>
     <summary>
-        <b>좋아요 기능</b>
+        <b>Code Splitting</b>
     </summary>
-    <br>해결 : 작성중..
-</details>
-<details>
-    <summary>
-        <b>material UI </b>
-    </summary>
-    <br>해결 : 작성중..
+    <br>해결 : 이미지를 불러오는 게시판 형태의 웹사이트 이기에, Lazy loading과 Code Splitting을 이용하여 LCP를 낮춰보려고 노력하였다.
+                Lazy Loading은 무한스크롤을 구현하며 시도하였고, Code Splitting은 react-loadable을 적용했다.
 </details>
