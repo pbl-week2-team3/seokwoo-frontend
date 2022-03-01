@@ -1,4 +1,4 @@
-import { atom, useSetRecoilState, useRecoilState } from "recoil";
+import { atom, useSetRecoilState } from "recoil";
 
 
 // atoms

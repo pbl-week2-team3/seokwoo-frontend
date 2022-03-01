@@ -1,10 +1,9 @@
 import React from "react";
-import { Text, Input, Grid, Button } from "../elements";
-import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
-
 import { useDispatch } from "react-redux";
+import { Button, Grid, Input, Text } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { emailCheck } from "../shared/common";
+
 
 const Login = (props) => {
   const dispatch = useDispatch();

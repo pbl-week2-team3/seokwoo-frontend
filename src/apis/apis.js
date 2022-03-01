@@ -1,6 +1,5 @@
 import axios from "axios";
-import { history } from "../redux/configureStore";
-import { getCookie } from "../shared/Cookie"
+import { getCookie } from "../shared/Cookie";
 
 const api = axios.create({
   baseURL: "http://52.78.200.34"

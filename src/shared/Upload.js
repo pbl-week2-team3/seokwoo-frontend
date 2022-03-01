@@ -1,16 +1,10 @@
 import React from "react";
-
-import {preview} from "../recoil/preview";
+import { useSetRecoilState } from "recoil";
+import { preview } from "../recoil/preview";
 import { profilePreview } from "../recoil/users";
 
-import { useSetRecoilState } from "recoil"
-
-import {useDispatch, useSelector} from "react-redux";
-import {actionCreators as imageActions} from "../redux/modules/image";
 
 export const Upload = (props) => {
-    const dispatch = useDispatch();
-    const is_uploading = useSelector(state => state.image.uploading);
     const fileInput = React.useRef();
     const setPreview = useSetRecoilState(preview)
     const setProfilePreview = useSetRecoilState(profilePreview)
@@ -45,7 +39,7 @@ export const Upload = (props) => {
 
     return (
         <React.Fragment>
-            <input type="file" onChange={selectFile} ref={fileInput} disabled={is_uploading}/>
+            <input type="file" onChange={selectFile} ref={fileInput}/>
         </React.Fragment>
     )
 }

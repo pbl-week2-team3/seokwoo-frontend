@@ -1,16 +1,13 @@
 import React from "react";
-import { Grid, Text, Button, Image, Input } from "../elements";
-import Upload from "../shared/Upload";
+import { useDispatch } from "react-redux";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { Button, Grid, Image, Input, Text } from "../elements";
+import { postState, usePostActions } from "../recoil/post";
 import { preview } from "../recoil/preview";
 import { loginState } from "../recoil/users";
-import { usePostActions, postState } from "../recoil/post";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
-import { useSelector, useDispatch } from "react-redux";
-//import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as imageActions } from "../redux/modules/image";
 import { getCookie } from "../shared/Cookie";
-import { history } from "../redux/configureStore"
+import Upload from "../shared/Upload";
+
 
 const PostWrite = (props) => {
 

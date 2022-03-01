@@ -26,10 +26,10 @@ const PostDetail = (props) => {
       {post.length!=0 && (
         <Post is_detail {...post} likeCnt={post.like_count}/>
       )}
-      <Permit>
+      {/* <Permit>
         <CommentWrite post_id={id} />
       </Permit>
-      <CommentList post_id={id} />
+      <CommentList post_id={id} /> */}
     </React.Fragment>
   );
 };

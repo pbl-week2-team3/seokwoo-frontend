@@ -1,8 +1,9 @@
-import React from "react";
+import {React, Suspense} from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./shared/App";
-import reportWebVitals from "./reportWebVitals";
+import reportWebVitals from "./reportWebVitals"; 
+import { Spinner } from "./elements/Spinner";
 import { Provider } from "react-redux";
 import { RecoilRoot } from "recoil";
 
@@ -11,7 +12,9 @@ import store from "./redux/configureStore";
 ReactDOM.render(
   <Provider store={store}>
     <RecoilRoot>
+    <Suspense fallback={<Spinner/>}>
       <App />
+    </Suspense>
     </RecoilRoot>
   </Provider>,
   document.getElementById("root")

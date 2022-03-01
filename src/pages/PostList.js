@@ -1,21 +1,16 @@
 // PostList.js
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import Post from "../components/Post";
-import InfinityScroll from "../shared/InfinityScroll";
-import { Grid } from "../elements";
-import { history } from "../redux/configureStore";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apis } from "../apis/apis";
+import Post from "../components/Post";
+import { Grid } from "../elements";
 import { postState } from "../recoil/post";
 import { loginState } from "../recoil/users";
-import { useSetRecoilState, useRecoilValue } from "recoil";
-import { last } from "lodash";
+import InfinityScroll from "../shared/InfinityScroll";
+
 
 const PostList = (props) => {
-  const dispatch = useDispatch();
   const setPostState = useSetRecoilState(postState);
-  const user_info = useSelector((state) => state.user.user);
   const post_list = useRecoilValue(postState);
 
   // const paging = useSelector((state) => state.post.paging);
@@ -93,7 +88,7 @@ const PostList = (props) => {
 
         >
           {stateList.map((p) => {
-            if (p.nickname === user_info?.uid) {
+            if (true) {
               let like_status = false;
               if (p.like_check) {
                 like_status = true;
@@ -102,12 +97,6 @@ const PostList = (props) => {
               return (
                 <Grid bg="#ffffff" key={p.id}>
                   <Post is_list {...p} like_status={like_status} />
-                </Grid>
-              );
-            } else {
-              return (
-                <Grid key={p.id} bg="#ffffff">
-                  <Post is_list {...p} />
                 </Grid>
               );
             }

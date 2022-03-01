@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Spinner = (props) => {
+export const Spinner = (props) => {
   const { type, size, is_dim } = props;
 
   return (

@@ -1,22 +1,17 @@
-import React from "react";
-
-import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import { Grid, Text, Input, Button, Image } from "../../elements";
-
-import { useDispatch } from "react-redux";
+import Link from "@mui/material/Link";
+import React from "react";
+import { useRecoilValue } from "recoil";
+import { Button, Grid, Image, Input } from "../../elements";
+import { profilePreview, useUserActions } from "../../recoil/users";
 //import { actionCreators as userActions } from "../../redux/modules/user";
 import { emailCheck } from "../../shared/common";
-import { getImgUrlFB } from "../../shared/ImgUrl"
-
-import { useRecoilValue } from "recoil";
-import { loginState, useUserActions, profilePreview } from "../../recoil/users";
+import { getImgUrlFB } from "../../shared/ImgUrl";
 import { Upload } from "../../shared/Upload";
 
+
 const SignUpBox = (props) => {
-  const dispatch = useDispatch();
   const userActions = useUserActions();
-  const isLogin = useRecoilValue(loginState);
   const _profilePreview = useRecoilValue(profilePreview);
 
   const [id, setId] = React.useState("");

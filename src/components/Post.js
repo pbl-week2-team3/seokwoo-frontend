@@ -1,13 +1,12 @@
 import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { Grid, Image, Text, Button } from "../elements";
-import { history } from "../redux/configureStore";
 import styled from "styled-components";
-import { none_like, like } from "../images/like";
+import { Button, Grid, Image, Text } from "../elements";
+import { like, none_like } from "../images/like";
 import { useLikeActions } from "../recoil/likes";
-import { usePostActions, postSelected } from "../recoil/post";
+import { postSelected, usePostActions } from "../recoil/post";
 import { loginState } from "../recoil/users";
-import { LocalGasStation } from "@material-ui/icons";
+import { history } from "../redux/configureStore";
 
 const Post = (props) => {
   

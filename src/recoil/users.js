@@ -1,13 +1,9 @@
 import {
-  atom,
-  selectorFamily,
-  useRecoilValue,
-  useSetRecoilState,
+  atom, useSetRecoilState
 } from "recoil";
-import { history } from "../redux/configureStore";
 import { apis } from "../apis/apis";
-import { setCookie, deleteCookie, getCookie } from "../shared/Cookie";
-import axios from "axios";
+import { history } from "../redux/configureStore";
+import { deleteCookie, setCookie } from "../shared/Cookie";
 
 export const loginState = atom({
   key: "loginState",

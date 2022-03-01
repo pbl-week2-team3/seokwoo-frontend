@@ -1,23 +1,17 @@
 import React from "react";
-import { Grid, Text, Button } from "../elements";
-import { getCookie, deleteCookie } from "../shared/Cookie";
-
-import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-
-import { history } from "../redux/configureStore";
-
-//import NotiBadge from "./NotiBadge";
-
-import { loginState, useUserActions } from "../recoil/users";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { Button, Grid, Text } from "../elements";
+//import NotiBadge from "./NotiBadge";
+import { loginState, useUserActions } from "../recoil/users";
+import { history } from "../redux/configureStore";
+import { getCookie } from "../shared/Cookie";
+
 
 const Header = (props) => {
-  const dispatch = useDispatch();
   const userActions = useUserActions();
   const setLoginState = useSetRecoilState(loginState);
   const is_login = useRecoilValue(loginState);
-  console.log("is_login : ",is_login)
   const pathname = useLocation().pathname;
   let token = null
   

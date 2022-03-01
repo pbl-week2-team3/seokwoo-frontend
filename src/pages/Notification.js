@@ -1,9 +1,9 @@
 import React from "react";
-import { Grid, Text, Image } from "../elements";
-import Card from "../components/Card";
-
-import { realtime } from "../shared/firebase";
 import { useSelector } from "react-redux";
+import Card from "../components/Card";
+import { Grid } from "../elements";
+import { realtime } from "../shared/firebase";
+
 
 const Notification = (props) => {
   const user = useSelector(state => state.user.user);

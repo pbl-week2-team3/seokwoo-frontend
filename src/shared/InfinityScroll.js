@@ -1,15 +1,13 @@
-import React from "react";
 import _ from "lodash";
-import {Spinner} from "../elements";
-import { useRecoilValue } from "recoil";
-import { postState } from "../recoil/post";
+import React from "react";
+import { Spinner } from "../elements";
 
 
 const InfinityScroll = (props) => {
 
     const {children, callNext, is_next, loading, post_list} = props;
 
-    
+    //쓰로틀
     const _handleScroll = _.throttle(() => {
 
         if(loading){
@@ -21,7 +19,7 @@ const InfinityScroll = (props) => {
 
         const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         
-        //전체의 높이(스크롤 전체) - (스크롤 위치 높이 + 화면 높이)
+        //트리거 - 전체의 높이(스크롤 전체) - (스크롤 위치 높이 + 화면 높이)
         if(scrollHeight - innerHeight - scrollTop < 200) {
             const lastId=post_list[post_list.length-1].id;
             console.log("before CallNext : ", lastId);
@@ -29,6 +27,7 @@ const InfinityScroll = (props) => {
         }
     }, 300);
 
+    //useCallback
     const handleScroll = React.useCallback(_handleScroll, [loading]);
 
     React.useEffect(() => {
@@ -45,6 +44,7 @@ const InfinityScroll = (props) => {
         
 
         return () => window.removeEventListener("scroll", handleScroll);
+        //useEffect eventListener 사용 및 is_next, loading 트리거
     }, [is_next, loading]);
 
     return (
