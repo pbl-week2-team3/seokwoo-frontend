@@ -14,19 +14,17 @@
 
 <h3><b>🎞 배포 URL 🎞</b></h3>
 
-[배포 URL 바로가기](https://reactweek2-1161e.web.app/login)
+[배포 URL 바로가기](http://reactproject2.s3-website.ap-northeast-2.amazonaws.com/)
 
 <h3><b>💻 Now Working On.. 💻</b></h3>
 
 To Do List
 
-Like API : done,
+Code Splitting : working,
 <br>
 Infinity Scroll : done,
 <br>
-S3 Image Upload : to do,
-<br>
-Comment : don't have to,
+apply type script : to do,
 <br>
 ---
 
